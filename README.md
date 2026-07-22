@@ -1,13 +1,4 @@
-# The Coffee Table — site skeleton
 
-A virtual coffee table book. This is the information architecture and component
-skeleton only — copy, photography, and real content are meant to be dropped in
-later, page by page.
-
-## How it's built
-
-Plain HTML, CSS, and vanilla JS. No build step, no framework, no dependency
-you can't read in five minutes.
 
 ```
 /
