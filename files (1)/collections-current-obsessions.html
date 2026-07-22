@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Obsessions — Collections — The Coffee Table</title>
+<meta name="description" content="Whatever I can't stop thinking about this month. Rotates often.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--sp-5) var(--sp-4); margin-top: var(--sp-5); }
+  .entry .meta-row { display: flex; justify-content: space-between; margin-top: var(--sp-2); font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-faint); }
+  .entry .note { margin-top: var(--sp-2); font-size: var(--step-small); color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 10 of 10 — updated monthly</p>
+      <h1 style="font-size:var(--step-h2)">Current Obsessions</h1>
+      <p class="lede" style="max-width:60ch">Whatever I can't stop thinking about this month. No filters here — it's small and it rotates before it needs sorting.</p>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+      <div class="entry-grid">
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="-2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 1</span></div>
+          <p class="note">Can't stop mentioning this in conversations that have nothing to do with it.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 2</span></div>
+          <p class="note">Bought the second one before finishing the first.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="-1deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 2</span></div>
+          <p class="note">Will probably be gone from this list by next month. That's fine.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 3</span></div>
+          <p class="note">A rabbit hole I fell into at 1am and haven't climbed out of since.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="-1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 3</span></div>
+          <p class="note">Recommended by three unrelated people in the same week. Took the hint.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="obsession placeholder" ratio="1/1" tilt="0.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>category</span><span>week 4</span></div>
+          <p class="note">Placeholder entry — swap in the real thing and note here.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

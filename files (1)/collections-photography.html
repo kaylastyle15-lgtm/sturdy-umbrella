@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photography — Collections — The Coffee Table</title>
+<meta name="description" content="Mostly film scans. Mostly out of focus on purpose.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .filter-chip { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--line); color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .filter-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper-white); border-color: var(--ink); }
+  .roll-block + .roll-block { margin-top: var(--sp-6); }
+  .roll-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--sp-4); }
+  .span-7 { grid-column: span 7; } .span-5 { grid-column: span 5; }
+  .span-4 { grid-column: span 4; } .span-8 { grid-column: span 8; }
+  @media (max-width: 720px) { [class*="span-"] { grid-column: span 1; } }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 04 of 10</p>
+      <h1 style="font-size:var(--step-h2)">Photography</h1>
+      <p class="lede" style="max-width:60ch">Mostly film scans, mostly out of focus on purpose. Organized by roll, not by subject.</p>
+
+      <div class="filter-row" role="group" aria-label="Filter photography">
+        <button class="filter-chip" aria-pressed="true">All</button>
+        <button class="filter-chip" aria-pressed="false">Portraits</button>
+        <button class="filter-chip" aria-pressed="false">Street</button>
+        <button class="filter-chip" aria-pressed="false">Landscape</button>
+        <button class="filter-chip" aria-pressed="false">Film</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+
+      <div class="roll-block">
+        <div class="roll-head">
+          <h3>Roll 014 — placeholder location</h3>
+          <span class="mono" style="color:var(--ink-faint)">March 2026</span>
+        </div>
+        <div class="grid-editorial">
+          <div class="span-7"><film-frame label="frame 01 placeholder" caption="the light does this every March" ratio="3/2" tilt="-0.6deg"></film-frame></div>
+          <div class="span-5"><film-frame label="frame 02 placeholder" ratio="4/5" tilt="1deg" tape></film-frame></div>
+        </div>
+      </div>
+
+      <div class="roll-block">
+        <div class="roll-head">
+          <h3>Roll 009 — placeholder location</h3>
+          <span class="mono" style="color:var(--ink-faint)">November 2025</span>
+        </div>
+        <div class="grid-editorial">
+          <div class="span-4"><film-frame label="frame 03 placeholder" ratio="4/5" tilt="-1.2deg"></film-frame></div>
+          <div class="span-4"><film-frame label="frame 04 placeholder" caption="still thinking about this one" ratio="4/5" tilt="0.6deg"></film-frame></div>
+          <div class="span-4"><film-frame label="frame 05 placeholder" ratio="4/5" tilt="-0.4deg"></film-frame></div>
+        </div>
+      </div>
+
+      <div class="roll-block">
+        <div class="roll-head">
+          <h3>Roll 002 — placeholder location</h3>
+          <span class="mono" style="color:var(--ink-faint)">where it started, 2013</span>
+        </div>
+        <div class="grid-editorial">
+          <div class="span-8"><film-frame label="frame 06 placeholder" caption="first roll, first camera" ratio="3/2" tilt="0.4deg"></film-frame></div>
+          <div class="span-4"><film-frame label="frame 07 placeholder" ratio="4/5" tilt="-1.5deg" tape></film-frame></div>
+        </div>
+      </div>
+
+      <p class="mono" style="margin-top:var(--sp-5);color:var(--ink-faint)">// Photography breaks from the standard collection grid — grouped by roll, in the same asymmetric layout as the Lookbook, since this collection is the images themselves rather than entries about something else.</p>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

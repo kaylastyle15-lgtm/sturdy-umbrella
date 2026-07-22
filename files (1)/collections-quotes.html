@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quotes — Collections — The Coffee Table</title>
+<meta name="description" content="Lines copied into notebook margins, sometimes without the source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .filter-chip { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--line); color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .filter-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper-white); border-color: var(--ink); }
+  .quote-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--sp-5) var(--sp-4); margin-top: var(--sp-5); }
+  .quote-card { padding-top: var(--sp-5); }
+  .quote-card .hand { font-size: 1.5rem; }
+  .quote-card .source { margin-top: var(--sp-3); font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-faint); }
+  .quote-card:nth-child(3n+1) { transform: rotate(-0.3deg); }
+  .quote-card:nth-child(3n+2) { transform: rotate(0.2deg); }
+  .quote-card:nth-child(3n)   { transform: rotate(-0.15deg); }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 09 of 10</p>
+      <h1 style="font-size:var(--step-h2)">Quotes</h1>
+      <p class="lede" style="max-width:60ch">Lines copied into notebook margins, sometimes without the source — this collection is text, not images, on purpose.</p>
+
+      <div class="filter-row" role="group" aria-label="Filter quotes">
+        <button class="filter-chip" aria-pressed="true">All</button>
+        <button class="filter-chip" aria-pressed="false">On writing</button>
+        <button class="filter-chip" aria-pressed="false">On attention</button>
+        <button class="filter-chip" aria-pressed="false">On memory</button>
+        <button class="filter-chip" aria-pressed="false">Overheard</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+      <div class="quote-grid">
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"Placeholder line worth keeping, copied down before the source was forgotten."</p>
+          <p class="source">— placeholder source, placeholder year</p>
+        </article>
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"Overheard on a train platform and written on a receipt because that's what was in my pocket."</p>
+          <p class="source">— overheard, unattributed</p>
+        </article>
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"A line about attention that I think about more than I'd like to admit."</p>
+          <p class="source">— placeholder source, placeholder year</p>
+        </article>
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"The kind of sentence you copy out by hand so it sticks better."</p>
+          <p class="source">— placeholder source, placeholder year</p>
+        </article>
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"Something my grandmother used to say, paraphrased since no one wrote it down at the time."</p>
+          <p class="source">— family, no date</p>
+        </article>
+
+        <article class="card card--torn quote-card">
+          <p class="hand">"Placeholder entry — swap in the real line and its source here."</p>
+          <p class="source">— placeholder source, placeholder year</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

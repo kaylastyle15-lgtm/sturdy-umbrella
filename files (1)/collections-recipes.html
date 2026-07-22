@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes — Collections — The Coffee Table</title>
+<meta name="description" content="Handwritten cards, half-legible, mostly about soup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .filter-chip { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--line); color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .filter-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper-white); border-color: var(--ink); }
+  .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--sp-5) var(--sp-4); margin-top: var(--sp-5); }
+  .entry .meta-row { display: flex; justify-content: space-between; margin-top: var(--sp-2); font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-faint); }
+  .entry .note { margin-top: var(--sp-2); font-size: var(--step-small); color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 06 of 10</p>
+      <h1 style="font-size:var(--step-h2)">Recipes</h1>
+      <p class="lede" style="max-width:60ch">Handwritten cards, half-legible, mostly about soup. Measurements are suggestions.</p>
+
+      <div class="filter-row" role="group" aria-label="Filter recipes">
+        <button class="filter-chip" aria-pressed="true">All</button>
+        <button class="filter-chip" aria-pressed="false">Soups</button>
+        <button class="filter-chip" aria-pressed="false">Baking</button>
+        <button class="filter-chip" aria-pressed="false">Weeknight</button>
+        <button class="filter-chip" aria-pressed="false">Slow Sunday</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+      <div class="entry-grid">
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="-2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>Grandma's card</span><span>soup</span></div>
+          <p class="note">The card is stained beyond reading, so this one's mostly memorized now.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>Adapted, badly</span><span>baking</span></div>
+          <p class="note">Started as someone else's recipe. Barely resembles it now.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="-1deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>15 minutes</span><span>weeknight</span></div>
+          <p class="note">In heavy rotation. Doesn't taste like a compromise.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>All afternoon</span><span>slow sunday</span></div>
+          <p class="note">Takes the whole day. Worth clearing the whole day for.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="-1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>Borrowed</span><span>baking</span></div>
+          <p class="note">Traded for a favor. Still owe the favor.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="dish photo placeholder" ratio="4/3" tilt="0.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Recipe name</h4>
+          <div class="meta-row"><span>Source placeholder</span><span>soup</span></div>
+          <p class="note">Placeholder entry — swap in the real photo and note here.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

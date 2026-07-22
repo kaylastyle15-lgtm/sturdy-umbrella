@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Places — Collections — The Coffee Table</title>
+<meta name="description" content="Cities, corners, and the specific bench I always sit on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .filter-chip { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--line); color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .filter-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper-white); border-color: var(--ink); }
+  .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--sp-5) var(--sp-4); margin-top: var(--sp-5); }
+  .entry .meta-row { display: flex; justify-content: space-between; margin-top: var(--sp-2); font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-faint); }
+  .entry .note { margin-top: var(--sp-2); font-size: var(--step-small); color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 05 of 10</p>
+      <h1 style="font-size:var(--step-h2)">Places</h1>
+      <p class="lede" style="max-width:60ch">Cities, corners, and the specific bench I always sit on. Not a bucket list — more a log of where I've actually been.</p>
+
+      <div class="filter-row" role="group" aria-label="Filter places">
+        <button class="filter-chip" aria-pressed="true">All</button>
+        <button class="filter-chip" aria-pressed="false">Cities</button>
+        <button class="filter-chip" aria-pressed="false">Coastal</button>
+        <button class="filter-chip" aria-pressed="false">Home turf</button>
+        <button class="filter-chip" aria-pressed="false">Someday</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+      <div class="entry-grid">
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="-2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>2024</span></div>
+          <p class="note">The bench by the water, second one from the left. That's the whole memory.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>2019</span></div>
+          <p class="note">Got lost on purpose for two hours. Best two hours of the trip.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="-1deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>2022</span></div>
+          <p class="note">Home turf. The corner store still remembers my order.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>Someday</span></div>
+          <p class="note">Haven't been yet. Keeping the placeholder here on purpose.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="-1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>2016</span></div>
+          <p class="note">Rained the entire time. Would still go back tomorrow.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="place photo placeholder" ratio="4/3" tilt="0.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Place name</h4>
+          <div class="meta-row"><span>Region placeholder</span><span>2020</span></div>
+          <p class="note">Placeholder entry — swap in the real photo and note here.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

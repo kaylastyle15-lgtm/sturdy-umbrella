@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee — Collections — The Coffee Table</title>
+<meta name="description" content="Beans, ratios, and the diners worth the detour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  .crumb { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); text-decoration: none; }
+  .crumb:hover { color: var(--ink); }
+  .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .filter-chip { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--line); color: var(--ink-soft); background: transparent; cursor: pointer; }
+  .filter-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper-white); border-color: var(--ink); }
+  .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--sp-5) var(--sp-4); margin-top: var(--sp-5); }
+  .entry .meta-row { display: flex; justify-content: space-between; margin-top: var(--sp-2); font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-faint); }
+  .entry .note { margin-top: var(--sp-2); font-size: var(--step-small); color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<site-nav current="collections"></site-nav>
+
+<div class="page">
+  <header class="section section--tight" data-reveal>
+    <div class="wrap">
+      <a class="crumb" href="collections.html">← Back to Collections</a>
+      <p class="eyebrow" style="margin-top:var(--sp-3)">Collection 07 of 10</p>
+      <h1 style="font-size:var(--step-h2)">Coffee</h1>
+      <p class="lede" style="max-width:60ch">Beans, ratios, and the diners worth the detour. The second cup always gets a note.</p>
+
+      <div class="filter-row" role="group" aria-label="Filter coffee">
+        <button class="filter-chip" aria-pressed="true">All</button>
+        <button class="filter-chip" aria-pressed="false">Beans</button>
+        <button class="filter-chip" aria-pressed="false">Diners</button>
+        <button class="filter-chip" aria-pressed="false">Ratios</button>
+        <button class="filter-chip" aria-pressed="false">Gear</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" data-reveal>
+    <div class="wrap">
+      <div class="entry-grid">
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="-2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>Roaster placeholder</span><span>beans</span></div>
+          <p class="note">Tastes like the last good trip. Buying it again mostly for that.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>Off the highway</span><span>diner</span></div>
+          <p class="note">Bad coffee, great booth, worth every detour.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="-1deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>1:16, 94°C</span><span>ratio</span></div>
+          <p class="note">Took three months to land on this and I'm still adjusting it.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="2deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>Roaster placeholder</span><span>beans</span></div>
+          <p class="note">Only available in fall. Stock up when you see it.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="-1.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>Secondhand find</span><span>gear</span></div>
+          <p class="note">Chipped, still works better than the one that replaced it.</p>
+        </article>
+
+        <article class="entry">
+          <film-frame label="bag / cup placeholder" ratio="4/5" tilt="0.5deg"></film-frame>
+          <h4 style="font-size:1.05rem;margin-top:var(--sp-2)">Entry name</h4>
+          <div class="meta-row"><span>Placeholder</span><span>diner</span></div>
+          <p class="note">Placeholder entry — swap in the real photo and note here.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<site-footer></site-footer>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
