@@ -1,0 +1,35 @@
+{
+  "preferences": {
+    "person": "24F, cooks and batches, mixes and matches across the week",
+    "daily_target": { "calories": 2170, "protein_g": 125, "note": "assumed daily, not per-meal, since 2170 kcal in one sitting is unusual. Confirm/correct if wrong." },
+    "lactose_sensitive": true,
+    "likes": ["pasta", "chicken", "beef", "stews"],
+    "dislikes": ["mushrooms"],
+    "weekly_restock": { "item": "eggs", "confirmed": false, "note": "user's original note cut off at 'restock each week: 1.' — ask to confirm the real item" },
+    "budget_weekly_usd": 100,
+    "stores": ["ShopRite", "Trader Joe's", "Whole Foods Market"],
+    "cart_delivery": "plain-text/HTML shopping list split by store, plain quantities, no live cart access",
+    "dinners_per_week": 4,
+    "cuisine_mix_target": "3-4 different cuisines per week",
+    "teach_each_week": "one new cuisine + one new cooking technique",
+    "tone": "genuinely flavorful, not bland clean-eating"
+  },
+  "weeks": [
+    {
+      "week_of": "2026-08-04",
+      "cuisines": ["Italian", "Mexican", "Moroccan", "Cajun"],
+      "new_cuisine_taught": "Moroccan",
+      "new_technique_taught": "dry-brining",
+      "dinners": [
+        "Sausage & Chicken Rigatoni in Rustic Sugo",
+        "Braised Beef Barbacoa with Cilantro-Lime Rice",
+        "Chicken & Chickpea Tagine-Style Stew with Couscous",
+        "Dry-Brined Blackened Chicken with Smoky Red Beans & Rice"
+      ],
+      "proteins_used": ["chicken thighs", "beef chuck", "chicken sausage"],
+      "est_total_cost_usd": 76
+    }
+  ],
+  "cuisines_taught_so_far": ["Moroccan"],
+  "techniques_taught_so_far": ["dry-brining"]
+}

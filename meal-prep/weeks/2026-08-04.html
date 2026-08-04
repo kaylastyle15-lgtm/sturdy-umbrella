@@ -1,0 +1,438 @@
+<title>Week of Aug 4 — Meal Prep</title>
+<style>
+:root{
+  --bg:#e8e1d2; --bg-card:#f6f1e6; --ink:#2b2620; --ink-soft:#5c5546;
+  --olive:#4b5320; --olive-soft:#6b7a34; --rust:#b5502c; --line:#c9beA7;
+  --line-strong:#a89b7d; --good:#3f6b3f; --warn:#a2481f;
+  --tag-it:#8a6d3b; --tag-mx:#b5502c; --tag-mo:#7a5230; --tag-cj:#5c6b1f;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1d1b16; --bg-card:#262319; --ink:#ece3d2; --ink-soft:#b8ad95;
+    --olive:#9cb15c; --olive-soft:#7f9548; --rust:#e08655; --line:#443f30;
+    --line-strong:#5a5340; --good:#8fbf8f; --warn:#e0a06a;
+    --tag-it:#cbab6c; --tag-mx:#e08655; --tag-mo:#c99a6c; --tag-cj:#a8bd5e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1d1b16; --bg-card:#262319; --ink:#ece3d2; --ink-soft:#b8ad95;
+  --olive:#9cb15c; --olive-soft:#7f9548; --rust:#e08655; --line:#443f30;
+  --line-strong:#5a5340; --good:#8fbf8f; --warn:#e0a06a;
+  --tag-it:#cbab6c; --tag-mx:#e08655; --tag-mo:#c99a6c; --tag-cj:#a8bd5e;
+}
+:root[data-theme="light"]{
+  --bg:#e8e1d2; --bg-card:#f6f1e6; --ink:#2b2620; --ink-soft:#5c5546;
+  --olive:#4b5320; --olive-soft:#6b7a34; --rust:#b5502c; --line:#c9beA7;
+  --line-strong:#a89b7d; --good:#3f6b3f; --warn:#a2481f;
+  --tag-it:#8a6d3b; --tag-mx:#b5502c; --tag-mo:#7a5230; --tag-cj:#5c6b1f;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  line-height:1.5;
+}
+.wrap{max-width:920px; margin:0 auto; padding:2.5rem 1.25rem 5rem;}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums;}
+
+header.top{margin-bottom:2.5rem;}
+.eyebrow{
+  font-family: ui-monospace, Menlo, monospace; font-size:0.72rem; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--olive-soft); margin:0 0 0.5rem;
+}
+h1{
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size:clamp(1.9rem,4.5vw,2.6rem); margin:0 0 0.35rem; text-wrap:balance; font-weight:600;
+}
+.sub{color:var(--ink-soft); font-size:0.98rem; max-width:60ch;}
+
+.assumptions{
+  border:1px solid var(--line); background:var(--bg-card); border-radius:6px;
+  padding:0.9rem 1.1rem; margin-top:1.25rem; font-size:0.88rem; color:var(--ink-soft);
+}
+.assumptions strong{color:var(--ink);}
+.assumptions ul{margin:0.4rem 0 0; padding-left:1.1rem;}
+.assumptions li{margin:0.15rem 0;}
+
+section{margin-top:3rem;}
+h2{
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size:1.4rem; margin:0 0 0.2rem; font-weight:600;
+}
+.section-note{color:var(--ink-soft); font-size:0.85rem; margin:0 0 1.2rem;}
+hr.rule{border:none; border-top:1px solid var(--line-strong); margin:0.6rem 0 1.4rem;}
+
+/* menu cards */
+.menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem;}
+.menu-card{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px;
+  padding:1.1rem 1.1rem 1rem; display:flex; flex-direction:column; gap:0.55rem;
+}
+.tag{
+  align-self:flex-start; font-family: ui-monospace, Menlo, monospace; font-size:0.68rem;
+  letter-spacing:0.08em; text-transform:uppercase; padding:0.2rem 0.5rem; border-radius:4px;
+  color:var(--bg); font-weight:600;
+}
+.tag.it{background:var(--tag-it);} .tag.mx{background:var(--tag-mx);}
+.tag.mo{background:var(--tag-mo);} .tag.cj{background:var(--tag-cj);}
+.menu-card h3{margin:0; font-size:1.02rem; line-height:1.3;}
+.menu-card .macro-row{display:flex; gap:1rem; font-size:0.86rem;}
+.menu-card .macro-row div{display:flex; flex-direction:column;}
+.menu-card .macro-row .num{font-size:1.05rem; font-weight:600;}
+.menu-card .macro-row .lbl{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);}
+.menu-card .cost{margin-top:auto; padding-top:0.5rem; border-top:1px dashed var(--line); font-size:0.85rem; color:var(--ink-soft);}
+.menu-card .cost b{color:var(--ink); font-family: ui-monospace, monospace;}
+.badge-new{color:var(--rust); font-weight:600;}
+
+.totals-strip{
+  display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.3rem; padding:0.9rem 1.1rem;
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px; font-size:0.88rem;
+}
+.totals-strip div{display:flex; gap:0.4rem; align-items:baseline;}
+.totals-strip .num{font-family:ui-monospace,monospace; font-weight:600; font-size:1rem;}
+
+/* 7 day grid */
+.week-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:8px;}
+table.week{border-collapse:collapse; width:100%; min-width:760px; font-size:0.87rem;}
+table.week th, table.week td{padding:0.65rem 0.7rem; text-align:left; border-bottom:1px solid var(--line);}
+table.week th{background:var(--bg-card); font-family:ui-monospace,monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);}
+table.week td.day{font-weight:600; white-space:nowrap;}
+table.week tr:last-child td{border-bottom:none;}
+.note-inline{font-size:0.78rem; color:var(--ink-soft); display:block; margin-top:0.15rem;}
+
+/* cart columns */
+.cart-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.1rem; align-items:start;}
+.cart{background:var(--bg-card); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+.cart .store{
+  padding:0.75rem 1rem; font-family:"Iowan Old Style",Palatino,Georgia,serif; font-weight:600;
+  font-size:1.05rem; border-bottom:1px solid var(--line-strong); display:flex; justify-content:space-between; align-items:baseline;
+}
+.cart .store .est{font-family:ui-monospace,monospace; font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+.cart ul{list-style:none; margin:0; padding:0.4rem 0;}
+.cart li{
+  display:flex; justify-content:space-between; gap:0.6rem; padding:0.42rem 1rem;
+  font-size:0.86rem; border-bottom:1px dotted var(--line);
+}
+.cart li:last-of-type{border-bottom:none;}
+.cart li .qty{color:var(--ink-soft); font-size:0.78rem;}
+.cart li .price{font-family:ui-monospace,monospace; white-space:nowrap;}
+.cart .subtotal{
+  display:flex; justify-content:space-between; padding:0.6rem 1rem; font-family:ui-monospace,monospace;
+  font-weight:600; background:var(--bg); border-top:1px solid var(--line-strong);
+}
+.wt-flag{color:var(--warn); font-size:0.72rem;}
+
+.grand-total{
+  margin-top:1rem; display:flex; justify-content:space-between; align-items:baseline;
+  padding:0.9rem 1.1rem; border:1px solid var(--olive); border-radius:8px; background:var(--bg-card);
+}
+.grand-total .num{font-family:ui-monospace,monospace; font-size:1.3rem; font-weight:700; color:var(--olive);}
+
+/* recipes */
+.recipe{background:var(--bg-card); border:1px solid var(--line); border-radius:8px; padding:1.3rem 1.4rem; margin-bottom:1.4rem;}
+.recipe h3{margin:0 0 0.15rem; font-family:"Iowan Old Style",Palatino,Georgia,serif; font-size:1.2rem;}
+.recipe .meta{font-size:0.8rem; color:var(--ink-soft); margin-bottom:0.9rem;}
+.recipe-cols{display:grid; grid-template-columns:1fr 1.5fr; gap:1.5rem;}
+.recipe-cols h4{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--olive-soft); margin:0 0 0.4rem;}
+.recipe ul, .recipe ol{margin:0; padding-left:1.15rem; font-size:0.9rem;}
+.recipe li{margin:0.28rem 0;}
+.technique-callout{
+  margin-top:0.9rem; padding:0.7rem 0.9rem; border-left:3px solid var(--rust);
+  background:var(--bg); font-size:0.85rem; border-radius:0 6px 6px 0;
+}
+.technique-callout b{color:var(--rust);}
+.honesty{
+  margin-top:0.7rem; padding:0.6rem 0.9rem; border-left:3px solid var(--warn);
+  background:var(--bg); font-size:0.83rem; border-radius:0 6px 6px 0; color:var(--ink-soft);
+}
+.honesty b{color:var(--warn);}
+@media (max-width:640px){ .recipe-cols{grid-template-columns:1fr;} }
+
+footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft);}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Meal Prep · Week of Mon Aug 3 – Sun Aug 9, 2026</p>
+  <h1>Sugo, Barbacoa, Tagine, Blacken</h1>
+  <p class="sub">4 dinners, batch-cooked, mixed across 7 nights. Three cuisines you know, one new one, plus a technique you'll use again long after this week.</p>
+
+  <div class="assumptions">
+    <strong>A few defaults I picked since I didn't hear back on specifics</strong> — flag any of these to change next week:
+    <ul>
+      <li><strong>2170 cal / 125g protein</strong> is treated as your <em>daily</em> target. Each dinner below runs ~780–900 kcal / ~48–55g protein, roughly a third of the day, on the assumption breakfast + lunch fill the rest lighter.</li>
+      <li><strong>Weekly restock</strong> defaulted to <strong>eggs</strong> (1 dozen) — your note cut off at "restock each week: 1." Tell me the real item.</li>
+      <li><strong>Cart = shopping list, not a live cart.</strong> I don't have login access to your ShopRite / Trader Joe's / Whole Foods accounts, so nothing gets added automatically — this is a plain list to work from at checkout, split by store, never submitted by me.</li>
+      <li>Prices are <strong>estimates</strong> from typical current pricing, not a live store lookup — expect ±10–15% depending on your actual store and sales.</li>
+    </ul>
+  </div>
+</header>
+
+<section id="menu">
+  <h2>This week's menu</h2>
+  <p class="section-note">3 recipes made from your regulars, 1 pushing into new territory. Cuisine spread: Italian, Mexican, Moroccan, Cajun.</p>
+  <hr class="rule">
+
+  <div class="menu-grid">
+    <div class="menu-card">
+      <span class="tag it">Italian</span>
+      <h3>Sausage &amp; Chicken Rigatoni, Rustic Sugo</h3>
+      <div class="macro-row">
+        <div><span class="num">~880</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~55g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$14.50</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag mx">Mexican</span>
+      <h3>Braised Beef Barbacoa, Cilantro-Lime Rice</h3>
+      <div class="macro-row">
+        <div><span class="num">~790</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~51g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$16</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag mo">Moroccan <span class="badge-new">· new cuisine</span></span>
+      <h3>Chicken &amp; Chickpea Tagine-Style Stew, Couscous</h3>
+      <div class="macro-row">
+        <div><span class="num">~850</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~48g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$15</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag cj">Cajun <span class="badge-new">· new technique</span></span>
+      <h3>Dry-Brined Blackened Chicken, Smoky Red Beans &amp; Rice</h3>
+      <div class="macro-row">
+        <div><span class="num">~790</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~52g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$13.50</b> total</div>
+    </div>
+  </div>
+
+  <div class="totals-strip">
+    <div><span class="lbl">8 dinner portions</span></div>
+    <div><span>Avg / portion:</span><span class="num">~825 kcal</span></div>
+    <div><span>Avg / portion:</span><span class="num">~51.5g protein</span></div>
+    <div><span>Est. grocery total:</span><span class="num">~$74</span></div>
+  </div>
+</section>
+
+<section id="grid">
+  <h2>7-day grid</h2>
+  <p class="section-note">4 recipes × 2 servings = 8 portions for 7 nights — Sunday combines the last two into one bowl so nothing sits past day 6.</p>
+  <hr class="rule">
+  <div class="week-scroll">
+    <table class="week">
+      <thead><tr><th>Day</th><th>Dinner</th><th>From</th></tr></thead>
+      <tbody>
+        <tr><td class="day">Mon</td><td>Sausage &amp; Chicken Rigatoni <span class="note-inline">— cook fresh, best day 1–3</span></td><td>Batch 1</td></tr>
+        <tr><td class="day">Tue</td><td>Beef Barbacoa + Cilantro-Lime Rice</td><td>Batch 2</td></tr>
+        <tr><td class="day">Wed</td><td>Moroccan Chicken &amp; Chickpea Tagine + Couscous</td><td>Batch 3</td></tr>
+        <tr><td class="day">Thu</td><td>Dry-Brined Blackened Chicken + Red Beans &amp; Rice</td><td>Batch 4</td></tr>
+        <tr><td class="day">Fri</td><td>Rigatoni, portion 2 <span class="note-inline">— reheat gently, loosen sauce with a splash of water</span></td><td>Batch 1</td></tr>
+        <tr><td class="day">Sat</td><td>Barbacoa remix: swap rice for leftover couscous, add lime + hot sauce</td><td>Batch 2</td></tr>
+        <tr><td class="day">Sun</td><td>Clean-out bowl: last tagine portion + last beans-and-rice portion, plated together</td><td>Batch 3 + 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="cart">
+  <h2>Draft shopping list — by store</h2>
+  <p class="section-note">Plain quantities, not exact SKUs — match to whatever size the shelf actually has. Items flagged <span class="wt-flag">⚠ sold by weight</span> will swing the real total.</p>
+  <hr class="rule">
+
+  <div class="cart-grid">
+    <div class="cart">
+      <div class="store">ShopRite <span class="est">~$31.50</span></div>
+      <ul>
+        <li><span>Chicken thighs, boneless skinless <span class="wt-flag">⚠ ~2 lb</span><span class="qty"> · for sugo + tagine + blackened</span></span><span class="price">$6.60</span></li>
+        <li><span>Beef chuck roast <span class="wt-flag">⚠ ~1 lb</span></span><span class="price">$5.99</span></li>
+        <li><span>Eggs, 1 dozen <span class="qty">· weekly restock</span></span><span class="price">$3.49</span></li>
+        <li><span>Rice, 2 lb bag</span><span class="price">$3.49</span></li>
+        <li><span>Rigatoni, 1 lb box <span class="qty">· use half</span></span><span class="price">$1.99</span></li>
+        <li><span>Yellow onions <span class="qty">· 3 count</span></span><span class="price">$1.79</span></li>
+        <li><span>Garlic <span class="qty">· 1 head</span></span><span class="price">$0.89</span></li>
+        <li><span>Celery <span class="qty">· 1 stalk bunch</span></span><span class="price">$2.19</span></li>
+        <li><span>Green bell pepper <span class="qty">· 1</span></span><span class="price">$0.99</span></li>
+        <li><span>Limes <span class="qty">· 3</span></span><span class="price">$1.50</span></li>
+        <li><span>Radishes <span class="qty">· 1 bunch</span></span><span class="price">$1.79</span></li>
+        <li><span>Olive oil <span class="qty">· have some? skip if stocked</span></span><span class="price">$0.99</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>$31.50</span></div>
+    </div>
+
+    <div class="cart">
+      <div class="store">Trader Joe's <span class="est">~$25.00</span></div>
+      <ul>
+        <li><span>Hot Italian chicken sausage <span class="qty">· 1 pkg (~12 oz)</span></span><span class="price">$4.49</span></li>
+        <li><span>Crushed tomatoes <span class="qty">· 1 can, 28 oz</span></span><span class="price">$2.29</span></li>
+        <li><span>Chickpeas <span class="qty">· 1 can, 15 oz</span></span><span class="price">$1.09</span></li>
+        <li><span>Red kidney beans <span class="qty">· 1 can, 15 oz</span></span><span class="price">$1.09</span></li>
+        <li><span>Chipotle peppers in adobo <span class="qty">· 1 small can</span></span><span class="price">$1.79</span></li>
+        <li><span>Couscous <span class="qty">· 1 box</span></span><span class="price">$2.99</span></li>
+        <li><span>Dried apricots <span class="qty">· 1 bag, use ~1/3 cup</span></span><span class="price">$4.99</span></li>
+        <li><span>Frozen corn <span class="qty">· 1 bag, use ~1 cup</span></span><span class="price">$2.29</span></li>
+        <li><span>Pecorino Romano, wedge <span class="qty">· small, naturally low-lactose</span></span><span class="price">$4.49</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>$25.51</span></div>
+    </div>
+
+    <div class="cart">
+      <div class="store">Whole Foods Market <span class="est">~$17.50</span></div>
+      <ul>
+        <li><span>Ras el hanout spice blend <span class="qty">· 1 jar (pantry item, lasts months)</span></span><span class="price">$5.99</span></li>
+        <li><span>Fresh ginger <span class="qty">· 1 knob</span></span><span class="price">$0.89</span></li>
+        <li><span>Fresh cilantro <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
+        <li><span>Fresh parsley <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
+        <li><span>Fresh basil <span class="qty">· 1 clamshell</span></span><span class="price">$3.49</span></li>
+        <li><span>Green onions <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
+        <li><span>Lactose-free ricotta <span class="qty">· 1 tub (optional swap for Pecorino)</span></span><span class="price">$4.49</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>$20.83</span></div>
+    </div>
+  </div>
+
+  <div class="grand-total">
+    <span>Estimated total across all 3 stores</span>
+    <span class="num">~$74–78</span>
+  </div>
+  <p class="section-note" style="margin-top:0.6rem;">That's under your ~$100 budget even with two dairy options listed (you only need one — Pecorino <em>or</em> the lactose-free ricotta, not both). Buffer covers price variance or a splurge swap.</p>
+</section>
+
+<section id="recipes">
+  <h2>Recipe page</h2>
+  <p class="section-note">Full method for all four, including the new cuisine and the new technique.</p>
+  <hr class="rule">
+
+  <div class="recipe">
+    <h3>Sausage &amp; Chicken Rigatoni in Rustic Sugo</h3>
+    <div class="meta">Italian · serves 2 · ~40 min active</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>8 oz chicken thighs, diced</li>
+          <li>Italian chicken sausage, casings removed</li>
+          <li>28 oz crushed tomatoes</li>
+          <li>1 onion, 3 garlic cloves, diced</li>
+          <li>1 tsp fennel seed, chili flake, dried oregano</li>
+          <li>6 oz rigatoni (half the box)</li>
+          <li>Basil, Pecorino or lactose-free ricotta</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Brown the sausage and chicken hard in olive oil, breaking up the sausage — don't crowd the pan, work in two batches if needed. Remove.</li>
+          <li>In the same pan, soften onion and garlic in the rendered fat. Toast the fennel seed and chili flake for 30 seconds until fragrant — this is where the flavor actually comes from, don't skip it.</li>
+          <li>Add crushed tomatoes, scrape up the browned bits from the bottom of the pan, return the meat, simmer uncovered 20–25 min until it thickens.</li>
+          <li>Boil rigatoni to just under al dente, toss into the sugo with a splash of pasta water to bring it together.</li>
+          <li>Finish with torn basil and shaved Pecorino (or a dollop of lactose-free ricotta).</li>
+        </ol>
+      </div>
+    </div>
+    <div class="honesty"><b>Meal-prep honesty:</b> pasta is the weak link here. It holds fine for 2–3 days but gets soft and drinks up the sauce past that — that's why it's slotted Mon and Fri, not late in the week. If you want to push it further out, cook the pasta noticeably under al dente and store sauce and noodles separately, combining only when reheating.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Braised Beef Barbacoa with Cilantro-Lime Rice</h3>
+    <div class="meta">Mexican · serves 2 · ~15 min active, ~2.5 hr mostly-unattended</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>1 lb beef chuck, cut into large chunks</li>
+          <li>2 chipotles in adobo + 1 tbsp sauce</li>
+          <li>1 tsp cumin, 1 tsp oregano, 3 garlic cloves, half an onion</li>
+          <li>Juice of 1 lime, ½ cup broth, 1 bay leaf</li>
+          <li>¾ cup rice, cilantro, lime zest</li>
+          <li>Frozen corn, radish, jalapeño for salsa</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Sear the chuck hard on all sides in a dutch oven — real color, not just grey. This is most of your flavor base.</li>
+          <li>Blend or mash the chipotles, adobo sauce, cumin, oregano, garlic, onion, and broth into a rough paste; pour over the beef with the bay leaf.</li>
+          <li>Cover, braise low (300°F oven or low simmer on the stove) 2–2.5 hours until it shreds with a fork.</li>
+          <li>Shred, toss back through the braising liquid so it stays juicy, finish with lime juice.</li>
+          <li>Char the corn dry in a hot skillet, toss with diced radish, jalapeño, lime, salt for a crunchy salsa. Serve over cilantro-lime rice.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="honesty"><b>Meal-prep honesty:</b> this is the best keeper of the four. Braised beef improves after a day or two in the fridge and freezes well. Keep the corn salsa separate and add fresh at serving — it goes soggy and loses its crunch if it sits mixed in.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Chicken &amp; Chickpea Tagine-Style Stew <span class="badge-new">— new cuisine</span></h3>
+    <div class="meta">Moroccan · serves 2 · ~45 min</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>12 oz chicken thighs, chunked</li>
+          <li>15 oz can chickpeas, drained</li>
+          <li>⅓ cup dried apricots, chopped</li>
+          <li>1 onion, 3 garlic cloves, 1" fresh ginger</li>
+          <li>2 tsp ras el hanout, 1 tbsp tomato paste, 1 cinnamon stick</li>
+          <li>1 cup broth, ⅔ cup couscous, toasted almonds, parsley</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Sear the chicken chunks lightly, remove. Soften onion, garlic, ginger in the same pot.</li>
+          <li>Add the tomato paste and ras el hanout directly to the fat and stir for 60–90 seconds until it darkens and smells toasted — this step is what separates a real tagine flavor from "chicken with curry powder dumped in."</li>
+          <li>Deglaze with broth, add the cinnamon stick, chickpeas, apricots, and chicken back in.</li>
+          <li>Simmer uncovered 20–25 min until the sauce clings and the apricots have softened into it.</li>
+          <li>Serve over couscous (just pour boiling water or broth over it, cover, 5 min, fluff), topped with toasted almonds and parsley.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="technique-callout"><b>New cuisine — Moroccan:</b> the defining move is building a warm-spice base (cinnamon, ginger, cumin, coriander, turmeric — usually pre-blended as ras el hanout) and balancing it against something sweet, here dried fruit, so the dish reads savory-forward with a background sweetness rather than tasting like dessert spices in a stew.</div>
+    <div class="honesty"><b>Meal-prep honesty:</b> holds and freezes well, actually improves by day 2 as the apricots keep releasing sweetness into the sauce. Couscous is best made fresh each night (5 minutes, no real prep-ahead benefit) rather than batched.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Dry-Brined Blackened Chicken with Smoky Red Beans &amp; Rice <span class="badge-new">— new technique</span></h3>
+    <div class="meta">Cajun · serves 2 · brine ahead + ~25 min active</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>12 oz chicken thighs</li>
+          <li>Kosher salt for the dry brine</li>
+          <li>Paprika, cayenne, garlic powder, onion powder, thyme, oregano, black pepper</li>
+          <li>15 oz can kidney beans</li>
+          <li>Half onion, half bell pepper, 1 celery stalk, 2 garlic cloves — the "holy trinity"</li>
+          <li>Smoked paprika, bay leaf, hot sauce, ¾ cup rice, green onion</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Salt the chicken thighs directly (about ¾ tsp kosher salt per pound) and leave uncovered in the fridge 4–24 hours ahead. Pat bone-dry before cooking — do not rinse.</li>
+          <li>Coat with the blackening spice mix. Sear in a screaming-hot cast iron pan, 3–4 min a side, until deeply charred.</li>
+          <li>Separately, sweat the onion, pepper, celery, garlic in a splash of oil until soft, add smoked paprika and bay leaf, then the beans and enough water to loosen slightly. Simmer 15 min, mash a few beans against the pot to thicken.</li>
+          <li>Serve the chicken sliced over rice and beans, hot sauce and green onion on top.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="technique-callout"><b>New technique — dry-brining:</b> salting meat well ahead (not right before cooking) gives the salt time to dissolve, pull moisture out, then get reabsorbed back in along with it — seasoning goes all the way through instead of just sitting on the surface, and the meat holds onto more moisture when it hits high heat. No rinsing after, unlike a wet brine — just pat it dry so it sears instead of steams.</div>
+    <div class="honesty"><b>Meal-prep honesty:</b> the beans and rice reheat great. The chicken is the risk — that hard sear is easy to overcook on reheat and turn dry. Reheat it gently, sliced, with a splash of broth or covered in the microwave at 70% power rather than full blast, or undercook it very slightly the first time.</div>
+  </div>
+</section>
+
+<footer>
+  Locked in for next week: cuisines used (Italian, Mexican, Moroccan, Cajun) and techniques taught (dry-brining) are logged so future weeks rotate to new ones and don't repeat this week's dinners. This plan runs automatically every Saturday morning — reply anytime to swap a dish, adjust the budget, or fix any of the assumptions flagged up top.
+</footer>
+
+</div>
