@@ -26,6 +26,10 @@ Each run:
 5. Appends the new week to `history.json` and adds a file under `weeks/`,
    then commits and pushes.
 
-Open items to confirm with the user (see `history.json.preferences` notes):
-- Whether the 2170 cal / 125g protein target is per day (assumed) or per meal.
-- The actual weekly restock item (defaulted to eggs, unconfirmed).
+Resolved:
+- 2170 cal / 125g protein is a confirmed daily target.
+- Restocking is inferred, not a fixed item: assume salt, pepper, olive oil, and
+  common dried seasonings are always on hand (never list them). Each week,
+  infer what's likely run low from the *previous* week's dinners (a spice jar
+  that got fully used, a produce item, etc.) and add just that. Eggs are a
+  standing weekly add regardless, since her supply runs low.
