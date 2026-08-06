@@ -16,6 +16,7 @@
     "cuisine_mix_target": "3-4 different cuisines per week",
     "teach_each_week": "one new cuisine + one new cooking technique",
     "tone": "genuinely flavorful, not bland clean-eating",
+    "artifact_color_scheme": "pink and black - deep magenta/hot pink accent against near-black in dark mode, and against a soft pink-white ground in light mode. Keep this scheme for future weeks unless she asks to change it.",
     "recipe_sourcing": "each dinner must be adapted from a specific, well-reviewed published recipe (NYT Cooking, Bon Appetit, Serious Eats, America's Test Kitchen, Once Upon a Chef, etc.) with the source cited and adaptations listed - never written with no source",
     "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate",
     "circulars": "each week, also web-search the current weekly circular/sale flyer for each store in 'stores' (ShopRite, Trader Joe's, Whole Foods, Food Bazaar) and route items to whichever store has them on sale that week where it makes sense; note in the plan when a specific circular deal was found and used, and note when no matching deal turned up rather than skipping the check silently"
