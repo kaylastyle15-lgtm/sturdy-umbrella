@@ -46,3 +46,13 @@ Do NOT put a "defaults/assumptions I picked" callout box on the artifact page
 — she found it distracting and had it removed. All preferences above are
 confirmed; if something genuinely new and unresolved comes up, mention it in
 the chat message that accompanies the artifact, not on the page itself.
+
+Cooking happens in two sessions, not one-dish-per-day: see
+`history.json.weekly_schedule` and `cooking_schedule_logic`. She's not home
+until ~9pm on weeknights, so every weeknight dinner is a reheat. The two
+batch-cook sessions land Monday and Wednesday midday (her only real free
+windows), and any advance-prep step (dry-brine, marinade) should be timed to
+the evening before its session so the push reminder lands then. The
+artifact's 7-day grid should reflect which session produced which dinner,
+and any recipe-page "when to cook" notes should reference the session, not a
+generic day-by-day cadence.
