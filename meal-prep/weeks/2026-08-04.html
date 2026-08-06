@@ -181,6 +181,48 @@ table.week tr:last-child td{border-bottom:none;}
 @media (max-width:640px){ .recipe-cols{grid-template-columns:1fr;} }
 
 footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft);}
+
+.settings-toggle{
+  display:flex; align-items:center; justify-content:space-between; width:100%;
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px;
+  padding:0.9rem 1.1rem; cursor:pointer; font-family:inherit; font-size:1rem;
+  color:var(--ink); text-align:left;
+}
+.settings-toggle .gear{ font-size:1.1rem; }
+.settings-toggle .chev{ color:var(--ink-soft); transition:transform 0.2s ease; font-size:0.8rem; }
+.settings-toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); }
+.settings-panel{
+  display:none; margin-top:1rem; background:var(--bg-card); border:1px solid var(--line);
+  border-radius:8px; padding:1.2rem 1.3rem;
+}
+.settings-panel.open{ display:block; }
+.settings-panel .field{ margin-bottom:1rem; display:flex; flex-direction:column; gap:0.35rem; }
+.settings-panel label{
+  font-family:ui-monospace,monospace; font-size:0.7rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--olive-soft); font-weight:600;
+}
+.settings-panel input[type="text"], .settings-panel input[type="number"], .settings-panel textarea{
+  font-family:inherit; font-size:0.9rem; padding:0.55rem 0.7rem; border-radius:6px;
+  border:1px solid var(--line-strong); background:var(--bg); color:var(--ink); width:100%;
+}
+.settings-panel textarea{ resize:vertical; min-height:3.2rem; }
+.settings-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+@media (max-width:520px){ .settings-row{ grid-template-columns:1fr; } }
+.settings-checks{ display:flex; flex-wrap:wrap; gap:0.9rem; }
+.settings-checks label{
+  display:flex; align-items:center; gap:0.4rem; font-family:inherit; text-transform:none;
+  letter-spacing:normal; font-size:0.88rem; color:var(--ink); font-weight:400;
+}
+.settings-checks input[type="checkbox"]{ width:1rem; height:1rem; accent-color:var(--olive); }
+.settings-actions{ display:flex; gap:0.7rem; flex-wrap:wrap; margin-top:0.4rem; }
+.settings-btn{
+  font-family:ui-monospace,monospace; font-size:0.78rem; padding:0.55rem 0.9rem; border-radius:6px;
+  border:1px solid var(--olive); background:var(--olive); color:var(--bg-card); cursor:pointer; font-weight:600;
+}
+.settings-btn.secondary{ background:none; color:var(--olive); }
+.settings-note{ font-size:0.78rem; color:var(--ink-soft); margin-top:0.6rem; line-height:1.5; }
+.settings-copied{ font-size:0.78rem; color:var(--good); font-weight:600; margin-left:0.5rem; opacity:0; transition:opacity 0.2s ease; }
+.settings-copied.show{ opacity:1; }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -572,8 +614,188 @@ document.addEventListener("DOMContentLoaded", function(){
   </div>
 </section>
 
+<section id="settings">
+  <button class="settings-toggle" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settingsPanel">
+    <span><span class="gear">⚙️</span>&nbsp; Your preferences</span>
+    <span class="chev">▾</span>
+  </button>
+
+  <div class="settings-panel" id="settingsPanel">
+    <p class="settings-note" style="margin-top:0; margin-bottom:1rem;">Pre-filled with what's currently set. Edit anything, then tap <b>Copy update for Claude</b> and paste the result into your chat — that's what actually changes next week's plan, since this page can't write back to the system that generates it.</p>
+
+    <div class="settings-row">
+      <div class="field">
+        <label for="pf-cal">Daily calorie target</label>
+        <input type="number" id="pf-cal" value="2170">
+      </div>
+      <div class="field">
+        <label for="pf-protein">Daily protein target (g)</label>
+        <input type="number" id="pf-protein" value="125">
+      </div>
+    </div>
+
+    <div class="settings-row">
+      <div class="field">
+        <label for="pf-budget">Weekly grocery budget ($)</label>
+        <input type="number" id="pf-budget" value="100">
+      </div>
+      <div class="field">
+        <label for="pf-zip">Zip code (for prices/circulars)</label>
+        <input type="text" id="pf-zip" value="07657">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Lactose</label>
+      <div class="settings-checks">
+        <label><input type="checkbox" id="pf-lactose" checked> Lactose sensitive</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="pf-likes">Likes</label>
+      <input type="text" id="pf-likes" value="pasta, chicken, beef, stews">
+    </div>
+    <div class="field">
+      <label for="pf-dislikes">Dislikes / won't eat</label>
+      <input type="text" id="pf-dislikes" value="mushrooms">
+    </div>
+
+    <div class="field">
+      <label>Stores to shop</label>
+      <div class="settings-checks">
+        <label><input type="checkbox" id="pf-store-shoprite" checked> ShopRite</label>
+        <label><input type="checkbox" id="pf-store-tj" checked> Trader Joe's</label>
+        <label><input type="checkbox" id="pf-store-wf" checked> Whole Foods Market</label>
+        <label><input type="checkbox" id="pf-store-fb" checked> Food Bazaar</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="pf-restock">Standing weekly restock</label>
+      <input type="text" id="pf-restock" value="eggs (1 dozen)">
+    </div>
+
+    <div class="field">
+      <label for="pf-schedule">Weekly schedule (used to time cook sessions &amp; reminders)</label>
+      <textarea id="pf-schedule">Mon-Thu: work 8:00-9:15am, free 9:15am-2:40pm, work 2:40-6:00pm, zoom class away from home 6:00-9:00pm, home from ~9pm. Fri-Sun: busy/unpredictable.</textarea>
+    </div>
+
+    <div class="field">
+      <label for="pf-color">Color scheme</label>
+      <input type="text" id="pf-color" value="pink and black">
+    </div>
+
+    <div class="settings-actions">
+      <button class="settings-btn" id="pf-copy" type="button">Copy update for Claude</button>
+      <button class="settings-btn secondary" id="pf-reset" type="button">Reset to current saved</button>
+      <span class="settings-copied" id="pf-copied">Copied ✓ — paste into chat</span>
+    </div>
+  </div>
+</section>
+
 <footer>
   Locked in for next week: cuisines used (Italian, Mexican, Moroccan, Cajun) and techniques taught (dry-brining) are logged so future weeks rotate to new ones and don't repeat this week's dinners. This plan runs automatically every Saturday morning — reply anytime to swap a dish or adjust the budget.
 </footer>
+
+<script>
+(function(){
+  var SETTINGS_KEY = "mealprep-settings-v1";
+  var FIELD_IDS = ["pf-cal","pf-protein","pf-budget","pf-zip","pf-lactose",
+    "pf-likes","pf-dislikes","pf-store-shoprite","pf-store-tj","pf-store-wf","pf-store-fb",
+    "pf-restock","pf-schedule","pf-color"];
+
+  function getEl(id){ return document.getElementById(id); }
+  function isCheckbox(el){ return el.type === "checkbox"; }
+
+  function readDefaults(){
+    var out = {};
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      out[id] = isCheckbox(el) ? el.checked : el.value;
+    });
+    return out;
+  }
+
+  function applyValues(values){
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el || !(id in values)) return;
+      if (isCheckbox(el)) el.checked = values[id]; else el.value = values[id];
+    });
+  }
+
+  function saveCurrent(){
+    var values = {};
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      values[id] = isCheckbox(el) ? el.checked : el.value;
+    });
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(values));
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var defaults = readDefaults();
+
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(SETTINGS_KEY)); } catch(e){}
+    if (saved) applyValues(saved);
+
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      el.addEventListener("input", saveCurrent);
+      el.addEventListener("change", saveCurrent);
+    });
+
+    var toggle = getEl("settingsToggle");
+    var panel = getEl("settingsPanel");
+    toggle.addEventListener("click", function(){
+      var open = panel.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    getEl("pf-reset").addEventListener("click", function(){
+      applyValues(defaults);
+      localStorage.removeItem(SETTINGS_KEY);
+    });
+
+    getEl("pf-copy").addEventListener("click", function(){
+      var stores = [];
+      if (getEl("pf-store-shoprite").checked) stores.push("ShopRite");
+      if (getEl("pf-store-tj").checked) stores.push("Trader Joe's");
+      if (getEl("pf-store-wf").checked) stores.push("Whole Foods Market");
+      if (getEl("pf-store-fb").checked) stores.push("Food Bazaar");
+
+      var msg = "Update my meal-prep preferences:\n" +
+        "- Daily target: " + getEl("pf-cal").value + " cal / " + getEl("pf-protein").value + "g protein\n" +
+        "- Weekly budget: $" + getEl("pf-budget").value + "\n" +
+        "- Zip: " + getEl("pf-zip").value + "\n" +
+        "- Lactose sensitive: " + (getEl("pf-lactose").checked ? "yes" : "no") + "\n" +
+        "- Likes: " + getEl("pf-likes").value + "\n" +
+        "- Dislikes: " + getEl("pf-dislikes").value + "\n" +
+        "- Stores: " + stores.join(", ") + "\n" +
+        "- Standing restock: " + getEl("pf-restock").value + "\n" +
+        "- Schedule: " + getEl("pf-schedule").value + "\n" +
+        "- Color scheme: " + getEl("pf-color").value;
+
+      function showCopied(){
+        var el = getEl("pf-copied");
+        el.classList.add("show");
+        setTimeout(function(){ el.classList.remove("show"); }, 2200);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(showCopied, function(){
+          window.prompt("Copy this and paste it into chat:", msg);
+        });
+      } else {
+        window.prompt("Copy this and paste it into chat:", msg);
+      }
+    });
+  });
+})();
+</script>
 
 </div>

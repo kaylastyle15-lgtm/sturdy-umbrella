@@ -47,6 +47,17 @@ Do NOT put a "defaults/assumptions I picked" callout box on the artifact page
 confirmed; if something genuinely new and unresolved comes up, mention it in
 the chat message that accompanies the artifact, not on the page itself.
 
+The artifact has a collapsible "⚙️ Your preferences" panel at the bottom
+(pre-filled from the fields below, saved to her browser's localStorage, with
+a "Copy update for Claude" button that formats her edits as a chat message).
+Since there's no backend, her edits there don't change history.json on
+their own — she pastes the copied message into chat and that's what actually
+updates preferences. Keep this panel's fields in sync with whatever's in
+`history.json.preferences` each week (add a field if a new preference gets
+added). Don't build anything more elaborate (multi-user accounts, a shared
+backend) unless she asks for that explicitly — she chose the local-only
+settings panel over building for other users.
+
 Cooking happens in two sessions, not one-dish-per-day: see
 `history.json.weekly_schedule` and `cooking_schedule_logic`. She's not home
 until ~9pm on weeknights, so every weeknight dinner is a reheat. The two
