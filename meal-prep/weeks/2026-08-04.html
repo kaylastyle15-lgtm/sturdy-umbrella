@@ -170,6 +170,13 @@ table.week tr:last-child td{border-bottom:none;}
   background:var(--bg); font-size:0.83rem; border-radius:0 6px 6px 0; color:var(--ink-soft);
 }
 .honesty b{color:var(--warn);}
+.advance-flag{
+  display:flex; align-items:flex-start; gap:0.6rem; margin:0 0 1rem;
+  padding:0.7rem 0.9rem; border-radius:6px; background:var(--olive); color:var(--bg-card);
+  font-size:0.87rem; font-weight:500;
+}
+.advance-flag .clock{ font-size:1.05rem; line-height:1; flex:0 0 auto; }
+.advance-flag b{ font-weight:700; }
 @media (max-width:640px){ .recipe-cols{grid-template-columns:1fr;} }
 
 footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft);}
@@ -479,6 +486,7 @@ document.addEventListener("DOMContentLoaded", function(){
   <div class="recipe">
     <h3>Dry-Brined Blackened Chicken with Smoky Red Beans &amp; Rice <span class="badge-new">— new technique</span></h3>
     <div class="meta">Cajun · serves 2 · brine ahead + ~25 min active</div>
+    <div class="advance-flag"><span class="clock">⏰</span><span><b>Start this ahead:</b> salt the chicken thighs 4–24 hours before cooking (Step 1) — this is slotted for Thursday, so salt it Wednesday morning or evening at the latest. If you're reading this same-day, a shorter 1–2 hour brine still helps, just won't season as deeply through the meat.</span></div>
     <div class="honesty" style="border-left-color:var(--olive-soft);"><b>Source:</b> chicken adapted from Once Upon a Chef's <a href="https://www.onceuponachef.com/recipes/blackened-chicken-skillet-grill-or-grill-pan.html" target="_blank" rel="noopener">Blackened Chicken</a> (Jenn Segal's recipes are reader-tested and consistently high-rated) — the dry-brine step before seasoning is my addition on top of her recipe, since her version seasons right before cooking. Beans adapted from Serious Eats' <a href="https://www.seriouseats.com" target="_blank" rel="noopener">New Orleans-style red beans and rice</a> approach — mashing some beans against the pot to thicken is their technique, simplified here to a skillet version with canned beans instead of dried, for a weeknight timeline.</div>
     <div class="recipe-cols">
       <div>

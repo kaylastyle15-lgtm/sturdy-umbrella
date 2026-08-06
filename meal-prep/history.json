@@ -21,7 +21,9 @@
     "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate",
     "circulars": "each week, also web-search the current weekly circular/sale flyer for each store in 'stores' (ShopRite, Trader Joe's, Whole Foods, Food Bazaar) and route items to whichever store has them on sale that week where it makes sense; note in the plan when a specific circular deal was found and used, and note when no matching deal turned up rather than skipping the check silently",
     "landing_artifact_url": "https://claude.ai/code/artifact/be28a700-08a6-4361-92fd-5654b2e46a02",
-    "landing_artifact_note": "she added this URL to her phone home screen as a permanent app icon. Every week's plan MUST publish to this exact URL via the Artifact tool's `url` param (not a fresh artifact) so the same home-screen icon always shows the current week. Still also save a dated copy under meal-prep/weeks/ in the repo for history."
+    "landing_artifact_note": "she added this URL to her phone home screen as a permanent app icon. Every week's plan MUST publish to this exact URL via the Artifact tool's `url` param (not a fresh artifact) so the same home-screen icon always shows the current week. Still also save a dated copy under meal-prep/weeks/ in the repo for history.",
+    "advance_prep_highlighting": "any recipe step that must be done a specific number of hours (or longer) ahead of cooking (dry-brining, marinating, soaking, overnight-anything) must get a visually distinct highlighted callout at the top of that recipe card (not buried in the numbered steps), stating exactly when to start it relative to that dinner's day of the week.",
+    "advance_prep_reminders": "whenever a week's plan includes an advance-prep step, schedule an actual push-notification reminder (via create_trigger, run_once_at, create_new_session_on_fire=true, notifications:{push:true}) timed to land at the moment she needs to start that step (e.g. the morning/evening before, per the recipe's lead time) for that specific date. The reminder message should name the dish and the exact action to take."
   },
   "weeks": [
     {
