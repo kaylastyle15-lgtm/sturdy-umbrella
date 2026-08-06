@@ -8,11 +8,14 @@
     "weekly_restock": { "item": "eggs", "confirmed": false, "note": "user's original note cut off at 'restock each week: 1.' — ask to confirm the real item" },
     "budget_weekly_usd": 100,
     "stores": ["ShopRite", "Trader Joe's", "Whole Foods Market"],
+    "zip": "07657",
     "cart_delivery": "plain-text/HTML shopping list split by store, plain quantities, no live cart access",
     "dinners_per_week": 4,
     "cuisine_mix_target": "3-4 different cuisines per week",
     "teach_each_week": "one new cuisine + one new cooking technique",
-    "tone": "genuinely flavorful, not bland clean-eating"
+    "tone": "genuinely flavorful, not bland clean-eating",
+    "recipe_sourcing": "each dinner must be adapted from a specific, well-reviewed published recipe (NYT Cooking, Bon Appetit, Serious Eats, America's Test Kitchen, Once Upon a Chef, etc.) with the source cited and adaptations listed - never written with no source",
+    "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate"
   },
   "weeks": [
     {
@@ -21,13 +24,25 @@
       "new_cuisine_taught": "Moroccan",
       "new_technique_taught": "dry-brining",
       "dinners": [
-        "Sausage & Chicken Rigatoni in Rustic Sugo",
-        "Braised Beef Barbacoa with Cilantro-Lime Rice",
-        "Chicken & Chickpea Tagine-Style Stew with Couscous",
-        "Dry-Brined Blackened Chicken with Smoky Red Beans & Rice"
+        {
+          "name": "Sausage & Chicken Rigatoni in Rustic Sugo",
+          "source": "Bon Appetit - Rigatoni With Spicy Sausage-Tomato Sauce, Arugula and Parmesan (June 2008)"
+        },
+        {
+          "name": "Braised Beef Barbacoa with Cilantro-Lime Rice",
+          "source": "Serious Eats - Barbacoa"
+        },
+        {
+          "name": "Chicken & Chickpea Tagine-Style Stew with Couscous",
+          "source": "America's Test Kitchen - Chicken Tagine with Fennel, Chickpeas, and Apricots"
+        },
+        {
+          "name": "Dry-Brined Blackened Chicken with Smoky Red Beans & Rice",
+          "source": "Once Upon a Chef - Blackened Chicken; Serious Eats - New Orleans-style red beans and rice (dry-brine step added on top of the Once Upon a Chef base)"
+        }
       ],
       "proteins_used": ["chicken thighs", "beef chuck", "chicken sausage"],
-      "est_total_cost_usd": 76
+      "est_total_cost_usd": 78
     }
   ],
   "cuisines_taught_so_far": ["Moroccan"],

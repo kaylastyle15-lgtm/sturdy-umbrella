@@ -14,8 +14,16 @@ Each run:
 1. Reads `history.json`, avoids repeating last week's 4 dinners, and picks a
    cuisine/technique not yet in `cuisines_taught_so_far` /
    `techniques_taught_so_far` where possible.
-2. Builds the new week's plan and delivers it as an artifact to the user.
-3. Appends the new week to `history.json` and adds a file under `weeks/`,
+2. Builds each dinner as an adaptation of a specific, well-reviewed published
+   recipe (NYT Cooking, Bon Appétit, Serious Eats, America's Test Kitchen,
+   Once Upon a Chef, etc. — sites with real recipe testing and reader
+   reviews, not random blogspam) — never written from scratch with no
+   source. Cites the source and lists what was changed (protein swaps for
+   likes/dislikes, lactose-friendly substitutions, scaling to 2 servings).
+3. Web-searches current prices for the user's zip (07657) where possible to
+   ground the shopping list; estimates are explicitly flagged as such.
+4. Builds the new week's plan and delivers it as an artifact to the user.
+5. Appends the new week to `history.json` and adds a file under `weeks/`,
    then commits and pushes.
 
 Open items to confirm with the user (see `history.json.preferences` notes):
