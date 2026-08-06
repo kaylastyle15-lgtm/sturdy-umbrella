@@ -9,7 +9,7 @@
     "pantry_staples_note": "never add these to the shopping list. Only add a spice/pantry item when a recipe needs something genuinely uncommon she likely doesn't have (e.g. ras el hanout, a specific chile).",
     "restock_logic": "each week, infer likely-depleted items from the PRIOR week's dinners (e.g. a fully-used spice jar, the last of a produce item, low pantry basics implied by what was cooked) and add those - don't just repeat a fixed list. Always add eggs (1 dozen) every week regardless, since her supply runs low - standing item until she says otherwise.",
     "budget_weekly_usd": 100,
-    "stores": ["ShopRite", "Trader Joe's", "Whole Foods Market"],
+    "stores": ["ShopRite", "Trader Joe's", "Whole Foods Market", "Food Bazaar"],
     "zip": "07657",
     "cart_delivery": "plain-text/HTML shopping list split by store, plain quantities, no live cart access",
     "dinners_per_week": 4,
@@ -17,7 +17,8 @@
     "teach_each_week": "one new cuisine + one new cooking technique",
     "tone": "genuinely flavorful, not bland clean-eating",
     "recipe_sourcing": "each dinner must be adapted from a specific, well-reviewed published recipe (NYT Cooking, Bon Appetit, Serious Eats, America's Test Kitchen, Once Upon a Chef, etc.) with the source cited and adaptations listed - never written with no source",
-    "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate"
+    "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate",
+    "circulars": "each week, also web-search the current weekly circular/sale flyer for each store in 'stores' (ShopRite, Trader Joe's, Whole Foods, Food Bazaar) and route items to whichever store has them on sale that week where it makes sense; note in the plan when a specific circular deal was found and used, and note when no matching deal turned up rather than skipping the check silently"
   },
   "weeks": [
     {
