@@ -41,3 +41,8 @@ Resolved:
   infer what's likely run low from the *previous* week's dinners (a spice jar
   that got fully used, a produce item, etc.) and add just that. Eggs are a
   standing weekly add regardless, since her supply runs low.
+
+Do NOT put a "defaults/assumptions I picked" callout box on the artifact page
+— she found it distracting and had it removed. All preferences above are
+confirmed; if something genuinely new and unresolved comes up, mention it in
+the chat message that accompanies the artifact, not on the page itself.
