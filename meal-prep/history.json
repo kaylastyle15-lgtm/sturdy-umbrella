@@ -1,7 +1,7 @@
 {
   "preferences": {
     "person": "24F, cooks and batches, mixes and matches across the week",
-    "daily_target": { "calories": 2170, "protein_g": 125, "note": "assumed daily, not per-meal, since 2170 kcal in one sitting is unusual. Confirm/correct if wrong." },
+    "daily_target": { "calories": 2170, "protein_g": 125, "note": "confirmed by user as daily total, not per-meal." },
     "lactose_sensitive": true,
     "likes": ["pasta", "chicken", "beef", "stews"],
     "dislikes": ["mushrooms"],
