@@ -7,8 +7,10 @@ weeks don't repeat meals, cuisines, or techniques.
 - `history.json` — standing preferences (macros, allergies, likes/dislikes,
   budget, stores) plus a log of every week's menu, cuisines, and the
   cuisine/technique taught that week.
-- `weeks/` — full markdown record of each week's plan (menu, macros, cost,
-  7-day grid, shopping list, recipes).
+- `weeks/` — full HTML record of each week's plan (menu, macros, cost,
+  7-day grid, shopping list, recipes). The shopping list is an interactive
+  checklist (tap to check off, saved via localStorage per page, per-store
+  reset button, live progress counter) — keep that pattern in future weeks.
 
 Each run:
 1. Reads `history.json`, avoids repeating last week's 4 dinners, and picks a

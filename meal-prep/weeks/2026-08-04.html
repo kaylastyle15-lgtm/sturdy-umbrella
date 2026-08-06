@@ -108,18 +108,42 @@ table.week tr:last-child td{border-bottom:none;}
   font-size:1.05rem; border-bottom:1px solid var(--line-strong); display:flex; justify-content:space-between; align-items:baseline;
 }
 .cart .store .est{font-family:ui-monospace,monospace; font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+.cart .progress{
+  font-family:ui-monospace,monospace; font-size:0.76rem; color:var(--olive-soft);
+  padding:0.5rem 1rem 0.2rem; display:block;
+}
 .cart ul{list-style:none; margin:0; padding:0.4rem 0;}
 .cart li{
-  display:flex; justify-content:space-between; gap:0.6rem; padding:0.42rem 1rem;
+  display:flex; justify-content:space-between; align-items:flex-start; gap:0.6rem; padding:0.55rem 1rem;
   font-size:0.86rem; border-bottom:1px dotted var(--line);
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+  transition:opacity 0.15s ease;
 }
 .cart li:last-of-type{border-bottom:none;}
+.cart li .row{display:flex; align-items:flex-start; gap:0.6rem;}
+.cart li .box{
+  flex:0 0 auto; width:1.05rem; height:1.05rem; margin-top:0.1rem; border-radius:4px;
+  border:1.5px solid var(--line-strong); background:var(--bg-card); position:relative;
+}
+.cart li.checked .box{ background:var(--olive); border-color:var(--olive); }
+.cart li.checked .box::after{
+  content:""; position:absolute; left:3px; top:-1px; width:5px; height:9px;
+  border:solid var(--bg-card); border-width:0 2px 2px 0; transform:rotate(40deg);
+}
+.cart li.checked{ opacity:0.45; }
+.cart li.checked .item-name{ text-decoration:line-through; }
 .cart li .qty{color:var(--ink-soft); font-size:0.78rem;}
-.cart li .price{font-family:ui-monospace,monospace; white-space:nowrap;}
+.cart li .price{font-family:ui-monospace,monospace; white-space:nowrap; flex:0 0 auto;}
 .cart .subtotal{
   display:flex; justify-content:space-between; padding:0.6rem 1rem; font-family:ui-monospace,monospace;
   font-weight:600; background:var(--bg); border-top:1px solid var(--line-strong);
 }
+.cart .clear-btn{
+  display:block; width:100%; text-align:center; padding:0.45rem; font-size:0.75rem;
+  background:none; border:none; border-top:1px dashed var(--line); color:var(--ink-soft);
+  font-family:ui-monospace,monospace; cursor:pointer;
+}
+.cart .clear-btn:hover{ color:var(--rust); }
 .wt-flag{color:var(--warn); font-size:0.72rem;}
 
 .grand-total{
@@ -150,6 +174,46 @@ table.week tr:last-child td{border-bottom:none;}
 
 footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft);}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var PAGE_KEY = "mealprep-2026-08-04";
+  function itemKey(cartName, idx){ return PAGE_KEY + ":" + cartName + ":" + idx; }
+
+  function updateProgress(cartEl){
+    var items = cartEl.querySelectorAll("[data-item]");
+    var checked = cartEl.querySelectorAll("[data-item].checked").length;
+    var progressEl = cartEl.querySelector("[data-progress]");
+    if (progressEl) progressEl.textContent = checked + " / " + items.length + " checked";
+  }
+
+  document.querySelectorAll(".cart").forEach(function(cartEl){
+    var cartName = cartEl.getAttribute("data-cart");
+    var items = cartEl.querySelectorAll("[data-item]");
+    items.forEach(function(li, idx){
+      var key = itemKey(cartName, idx);
+      if (localStorage.getItem(key) === "1") li.classList.add("checked");
+      li.addEventListener("click", function(){
+        li.classList.toggle("checked");
+        localStorage.setItem(key, li.classList.contains("checked") ? "1" : "0");
+        updateProgress(cartEl);
+      });
+    });
+    updateProgress(cartEl);
+
+    var clearBtn = cartEl.querySelector("[data-clear]");
+    if (clearBtn){
+      clearBtn.addEventListener("click", function(e){
+        e.stopPropagation();
+        items.forEach(function(li, idx){
+          li.classList.remove("checked");
+          localStorage.removeItem(itemKey(cartName, idx));
+        });
+        updateProgress(cartEl);
+      });
+    }
+  });
+});
+</script>
 
 <div class="wrap">
 
@@ -249,54 +313,62 @@ footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); fo
   <p class="section-note">Plain quantities, not exact SKUs — match to whatever size the shelf actually has. Items flagged <span class="wt-flag">⚠ sold by weight</span> will swing the real total.</p>
   <hr class="rule">
 
+  <p class="section-note">Tap an item at the store to check it off — progress is saved on this device, so leaving and reopening the page keeps your spot.</p>
+
   <div class="cart-grid">
-    <div class="cart">
+    <div class="cart" data-cart="shoprite">
       <div class="store">ShopRite <span class="est">~$34.87</span></div>
+      <span class="progress" data-progress></span>
       <ul>
-        <li><span>Chicken thighs, boneless skinless <span class="wt-flag">⚠ ~2 lb @ $3.49/lb, verified</span><span class="qty"> · for sugo + tagine + blackened</span></span><span class="price">$6.98</span></li>
-        <li><span>Beef chuck roast <span class="wt-flag">⚠ ~1 lb @ $6.49/lb sale price, verified</span></span><span class="price">$6.49</span></li>
-        <li><span>Eggs, 1 dozen large <span class="qty">· weekly restock, verified range $3.99–4.49</span></span><span class="price">$3.99</span></li>
-        <li><span>Rice, 2 lb bag <span class="qty">· estimate, not verified</span></span><span class="price">$3.49</span></li>
-        <li><span>Rigatoni, 1 lb box <span class="qty">· use half, estimate</span></span><span class="price">$1.99</span></li>
-        <li><span>Yellow onions <span class="qty">· 3 count</span></span><span class="price">$1.79</span></li>
-        <li><span>Garlic <span class="qty">· 1 head</span></span><span class="price">$0.89</span></li>
-        <li><span>Celery <span class="qty">· 1 stalk bunch</span></span><span class="price">$2.19</span></li>
-        <li><span>Green bell pepper <span class="qty">· 1</span></span><span class="price">$0.99</span></li>
-        <li><span>Limes <span class="qty">· 3</span></span><span class="price">$1.50</span></li>
-        <li><span>Radishes <span class="qty">· 1 bunch</span></span><span class="price">$1.79</span></li>
-        <li><span>Olive oil <span class="qty">· skip if stocked</span></span><span class="price">$0.99</span></li>
-        <li><span>Chipotle peppers in adobo <span class="qty">· 1 small can (Goya/La Costeña — moved here, TJ's doesn't carry this)</span></span><span class="price">$1.79</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Chicken thighs, boneless skinless <span class="wt-flag">⚠ ~2 lb @ $3.49/lb, verified</span><span class="qty"> · for sugo + tagine + blackened</span></span></span><span class="price">$6.98</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Beef chuck roast <span class="wt-flag">⚠ ~1 lb @ $6.49/lb sale price, verified</span></span></span><span class="price">$6.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Eggs, 1 dozen large <span class="qty">· weekly restock, verified range $3.99–4.49</span></span></span><span class="price">$3.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Rice, 2 lb bag <span class="qty">· estimate, not verified</span></span></span><span class="price">$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Rigatoni, 1 lb box <span class="qty">· use half, estimate</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Yellow onions <span class="qty">· 3 count</span></span></span><span class="price">$1.79</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Garlic <span class="qty">· 1 head</span></span></span><span class="price">$0.89</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Celery <span class="qty">· 1 stalk bunch</span></span></span><span class="price">$2.19</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Green bell pepper <span class="qty">· 1</span></span></span><span class="price">$0.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Limes <span class="qty">· 3</span></span></span><span class="price">$1.50</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Radishes <span class="qty">· 1 bunch</span></span></span><span class="price">$1.79</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Olive oil <span class="qty">· skip if stocked</span></span></span><span class="price">$0.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Chipotle peppers in adobo <span class="qty">· 1 small can (Goya/La Costeña — moved here, TJ's doesn't carry this)</span></span></span><span class="price">$1.79</span></li>
       </ul>
       <div class="subtotal"><span>Subtotal</span><span>$34.87</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
     </div>
 
-    <div class="cart">
+    <div class="cart" data-cart="traderjoes">
       <div class="store">Trader Joe's <span class="est">~$25.62</span></div>
+      <span class="progress" data-progress></span>
       <ul>
-        <li><span>Sweet Italian chicken sausage <span class="qty">· 1 pkg, verified ~$5.99</span></span><span class="price">$5.99</span></li>
-        <li><span>Crushed/whole tomatoes <span class="qty">· 1 can, 28 oz, verified $2.99–3.49</span></span><span class="price">$3.49</span></li>
-        <li><span>Organic chickpeas <span class="qty">· 1 can, verified $1.09</span></span><span class="price">$1.09</span></li>
-        <li><span>Organic kidney beans <span class="qty">· 1 can, verified $1.09</span></span><span class="price">$1.09</span></li>
-        <li><span>Organic couscous <span class="qty">· 1 box, verified $1.99</span></span><span class="price">$1.99</span></li>
-        <li><span>Dried apricots <span class="qty">· 1 bag, use ~1/3 cup — estimate, web prices found were reseller-inflated, not trustworthy</span></span><span class="price">$4.49</span></li>
-        <li><span>Frozen corn, plain (not the cotija one — that's dairy) <span class="qty">· 1 bag, use ~1 cup, estimate</span></span><span class="price">$2.49</span></li>
-        <li><span>Pecorino Romano, wedge <span class="qty">· naturally low-lactose, estimate</span></span><span class="price">$4.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Sweet Italian chicken sausage <span class="qty">· 1 pkg, verified ~$5.99</span></span></span><span class="price">$5.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Crushed/whole tomatoes <span class="qty">· 1 can, 28 oz, verified $2.99–3.49</span></span></span><span class="price">$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Organic chickpeas <span class="qty">· 1 can, verified $1.09</span></span></span><span class="price">$1.09</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Organic kidney beans <span class="qty">· 1 can, verified $1.09</span></span></span><span class="price">$1.09</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Organic couscous <span class="qty">· 1 box, verified $1.99</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Dried apricots <span class="qty">· 1 bag, use ~1/3 cup — estimate, web prices found were reseller-inflated, not trustworthy</span></span></span><span class="price">$4.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Frozen corn, plain (not the cotija one — that's dairy) <span class="qty">· 1 bag, use ~1 cup, estimate</span></span></span><span class="price">$2.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Pecorino Romano, wedge <span class="qty">· naturally low-lactose, estimate</span></span></span><span class="price">$4.99</span></li>
       </ul>
       <div class="subtotal"><span>Subtotal</span><span>$25.62</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
     </div>
 
-    <div class="cart">
+    <div class="cart" data-cart="wholefoods">
       <div class="store">Whole Foods Market <span class="est">~$17.34</span></div>
+      <span class="progress" data-progress></span>
       <ul>
-        <li><span>Ras el hanout spice blend <span class="qty">· 1 jar (pantry item, lasts months) — estimate, no price published online</span></span><span class="price">$6.99</span></li>
-        <li><span>Fresh ginger <span class="qty">· 1 knob</span></span><span class="price">$0.89</span></li>
-        <li><span>Fresh cilantro <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
-        <li><span>Fresh parsley <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
-        <li><span>Fresh basil <span class="qty">· 1 clamshell</span></span><span class="price">$3.49</span></li>
-        <li><span>Green onions <span class="qty">· 1 bunch</span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Ras el hanout spice blend <span class="qty">· 1 jar (pantry item, lasts months) — estimate, no price published online</span></span></span><span class="price">$6.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh ginger <span class="qty">· 1 knob</span></span></span><span class="price">$0.89</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh cilantro <span class="qty">· 1 bunch</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh parsley <span class="qty">· 1 bunch</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh basil <span class="qty">· 1 clamshell</span></span></span><span class="price">$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Green onions <span class="qty">· 1 bunch</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Lactose-free ricotta <span class="qty">· optional swap for Pecorino, skip if using Pecorino instead</span></span></span><span class="price">$5.99</span></li>
       </ul>
       <div class="subtotal"><span>Subtotal</span><span>$17.34</span></div>
-      <div class="subtotal" style="border-top:none; font-weight:400;"><span>+ Lactose-free ricotta, optional swap for Pecorino</span><span>$5.99</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
     </div>
   </div>
 
