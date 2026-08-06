@@ -28,6 +28,12 @@ Each run:
 5. Appends the new week to `history.json` and adds a file under `weeks/`,
    then commits and pushes.
 
+She added the artifact to her phone's home screen as a permanent app icon.
+Every week MUST republish to that same URL (`history.json.landing_artifact_url`,
+passed as the `url` param to the Artifact tool) rather than minting a new
+link, so the icon always opens to the current week. Still keep a dated copy
+under `weeks/` for history.
+
 Resolved:
 - 2170 cal / 125g protein is a confirmed daily target.
 - Restocking is inferred, not a fixed item: assume salt, pepper, olive oil, and

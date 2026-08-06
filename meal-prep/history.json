@@ -19,7 +19,9 @@
     "artifact_color_scheme": "pink and black - deep magenta/hot pink accent against near-black in dark mode, and against a soft pink-white ground in light mode. Keep this scheme for future weeks unless she asks to change it.",
     "recipe_sourcing": "each dinner must be adapted from a specific, well-reviewed published recipe (NYT Cooking, Bon Appetit, Serious Eats, America's Test Kitchen, Once Upon a Chef, etc.) with the source cited and adaptations listed - never written with no source",
     "pricing": "web-search current prices for stores near the zip above where possible; flag anything unverified as an estimate",
-    "circulars": "each week, also web-search the current weekly circular/sale flyer for each store in 'stores' (ShopRite, Trader Joe's, Whole Foods, Food Bazaar) and route items to whichever store has them on sale that week where it makes sense; note in the plan when a specific circular deal was found and used, and note when no matching deal turned up rather than skipping the check silently"
+    "circulars": "each week, also web-search the current weekly circular/sale flyer for each store in 'stores' (ShopRite, Trader Joe's, Whole Foods, Food Bazaar) and route items to whichever store has them on sale that week where it makes sense; note in the plan when a specific circular deal was found and used, and note when no matching deal turned up rather than skipping the check silently",
+    "landing_artifact_url": "https://claude.ai/code/artifact/be28a700-08a6-4361-92fd-5654b2e46a02",
+    "landing_artifact_note": "she added this URL to her phone home screen as a permanent app icon. Every week's plan MUST publish to this exact URL via the Artifact tool's `url` param (not a fresh artifact) so the same home-screen icon always shows the current week. Still also save a dated copy under meal-prep/weeks/ in the repo for history."
   },
   "weeks": [
     {
