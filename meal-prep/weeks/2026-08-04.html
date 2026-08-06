@@ -146,6 +146,15 @@ table.week tr:last-child td{border-bottom:none;}
 .cart .clear-btn:hover{ color:var(--rust); }
 .wt-flag{color:var(--warn); font-size:0.72rem;}
 
+.cart[data-cart^="precheck"] li.checked{ opacity:1; background:color-mix(in srgb, var(--warn) 12%, transparent); }
+.cart[data-cart^="precheck"] li.checked .item-name{ text-decoration:none; font-weight:600; }
+.cart[data-cart^="precheck"] li.checked .box{ background:var(--warn); border-color:var(--warn); }
+.cart[data-cart^="precheck"] li.checked .box::after{ content:"!"; border:none; left:0; top:-3px; width:100%; text-align:center; color:var(--bg-card); font-size:0.78rem; font-weight:800; transform:none; }
+.cart[data-cart^="precheck"] li.checked::after{
+  content:"missing — add to list"; margin-left:auto; padding-left:0.6rem; flex:0 0 auto;
+  font-family:ui-monospace,monospace; font-size:0.68rem; color:var(--warn); align-self:center;
+}
+
 .grand-total{
   margin-top:1rem; display:flex; justify-content:space-between; align-items:baseline;
   padding:0.9rem 1.1rem; border:1px solid var(--olive); border-radius:8px; background:var(--bg-card);
@@ -313,6 +322,53 @@ document.addEventListener("DOMContentLoaded", function(){
       </tbody>
     </table>
   </div>
+</section>
+
+<section id="pre-check">
+  <h2>Pre-shopping check</h2>
+  <p class="section-note">Before you head out — this week's recipes assume you already have these. Tap anything you're actually OUT of; that's your cue to add it to the list below before you go, not a surprise at the stove.</p>
+  <hr class="rule">
+  <div class="cart-grid">
+    <div class="cart" data-cart="precheck-pantry">
+      <div class="store">Pantry</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Kosher salt <span class="qty">· needed in real quantity for the Thu dry-brine, not just a pinch</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Black pepper</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Olive oil <span class="qty">· used across all four dinners</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Garlic powder</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Onion powder</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Dried oregano</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Ground cumin</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Chili flakes</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Paprika (regular, not smoked)</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Smoked paprika <span class="qty">· separate from regular — the Cajun beans specifically want smoked</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Cayenne pepper</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Dried thyme</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Bay leaves</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fennel seed <span class="qty">· for the rigatoni sugo — easy to not have on hand, it's less common than the others</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="cart" data-cart="precheck-fridge">
+      <div class="store">Fridge</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Butter <span class="qty">· not required by any recipe this week, only if you want to enrich the sugo or beans</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover fresh herbs from last week</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover onion/garlic from last week <span class="qty">· all four dinners use both — check before rebuying</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="cart" data-cart="precheck-freezer">
+      <div class="store">Freezer</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover portions from last week <span class="qty">· worth eating down before adding more to the freezer</span></span></span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="section-note" style="margin-top:0.6rem;"><b style="color:var(--olive);">Ras el hanout is NOT assumed</b> — it's new this week for the Moroccan stew and is already on the Whole Foods list below, not the pantry check above.</p>
 </section>
 
 <section id="cart">
