@@ -57,8 +57,37 @@
       ],
       "proteins_used": ["chicken thighs", "beef chuck", "chicken sausage"],
       "est_total_cost_usd": 78
+    },
+    {
+      "week_of": "2026-08-10",
+      "note": "generated manually in-session on Mon 2026-08-10 - the Sat 2026-08-08 automated run fired but produced no output (no commit, no artifact update), and a manual fire_trigger retry the same day also completed with no output. Cause unknown - no session transcript access to diagnose further.",
+      "cuisines": ["Hungarian", "Greek", "Thai", "Italian"],
+      "new_cuisine_taught": "Hungarian",
+      "new_technique_taught": "deglazing / building a pan sauce from the fond",
+      "dinners": [
+        {
+          "name": "Beef Goulash over Egg Noodles",
+          "source": "RecipeTin Eats - Hungarian Goulash"
+        },
+        {
+          "name": "Lemon Chicken & Orzo",
+          "source": "The Mediterranean Dish - One-Pan Greek Chicken and Orzo"
+        },
+        {
+          "name": "Thai Basil Chicken (Pad Krapow Gai)",
+          "source": "Hot Thai Kitchen - Pad Kra Pao"
+        },
+        {
+          "name": "Weeknight Beef Ragu, Short Pasta",
+          "source": "Bon Appetit - Weeknight Ragu (Chris Morocco)"
+        }
+      ],
+      "proteins_used": ["beef chuck", "chicken thighs", "ground chicken", "ground beef"],
+      "cook_sessions_this_week": "shifted to Tuesday + Thursday middays (one-time, due to the late start) - reverts to Monday/Wednesday next week",
+      "circular_deals_noted": "ShopRite circular for 8/9-8/15 advertises up to 30% off beef and up to 40% off poultry, but exact per-cut discount not confirmed - listed as an estimate range",
+      "est_total_cost_usd": 71
     }
   ],
-  "cuisines_taught_so_far": ["Moroccan"],
-  "techniques_taught_so_far": ["dry-brining"]
+  "cuisines_taught_so_far": ["Moroccan", "Hungarian"],
+  "techniques_taught_so_far": ["dry-brining", "deglazing / building a pan sauce from the fond"]
 }

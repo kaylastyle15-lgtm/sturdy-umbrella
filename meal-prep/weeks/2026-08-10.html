@@ -1,0 +1,808 @@
+<title>Week of Aug 10 — Meal Prep</title>
+<style>
+:root{
+  --bg:#fceef4; --bg-card:#ffffff; --ink:#160c11; --ink-soft:#6b4a58;
+  --olive:#c2005f; --olive-soft:#e0327f; --rust:#0d0d10; --line:#f0c9dc;
+  --line-strong:#e29dc0; --good:#0a8f5b; --warn:#c2005f;
+  --tag-it:#8a0e46; --tag-mx:#c2005f; --tag-mo:#5c0a35; --tag-cj:#e0327f;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c0a0d; --bg-card:#18141a; --ink:#f7e9f1; --ink-soft:#d9a9c4;
+    --olive:#ff4d94; --olive-soft:#ff77ac; --rust:#ffffff; --line:#33202b;
+    --line-strong:#522f3f; --good:#4ddba0; --warn:#ff4d94;
+    --tag-it:#ff77ac; --tag-mx:#ff4d94; --tag-mo:#e0327f; --tag-cj:#ff9dc4;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0a0d; --bg-card:#18141a; --ink:#f7e9f1; --ink-soft:#d9a9c4;
+  --olive:#ff4d94; --olive-soft:#ff77ac; --rust:#ffffff; --line:#33202b;
+  --line-strong:#522f3f; --good:#4ddba0; --warn:#ff4d94;
+  --tag-it:#ff77ac; --tag-mx:#ff4d94; --tag-mo:#e0327f; --tag-cj:#ff9dc4;
+}
+:root[data-theme="light"]{
+  --bg:#fceef4; --bg-card:#ffffff; --ink:#160c11; --ink-soft:#6b4a58;
+  --olive:#c2005f; --olive-soft:#e0327f; --rust:#0d0d10; --line:#f0c9dc;
+  --line-strong:#e29dc0; --good:#0a8f5b; --warn:#c2005f;
+  --tag-it:#8a0e46; --tag-mx:#c2005f; --tag-mo:#5c0a35; --tag-cj:#e0327f;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  line-height:1.5;
+}
+.wrap{max-width:920px; margin:0 auto; padding:2.5rem 1.25rem 5rem;}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums;}
+
+header.top{margin-bottom:2.5rem;}
+.eyebrow{
+  font-family: ui-monospace, Menlo, monospace; font-size:0.72rem; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--olive-soft); margin:0 0 0.5rem;
+}
+h1{
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size:clamp(1.9rem,4.5vw,2.6rem); margin:0 0 0.35rem; text-wrap:balance; font-weight:600;
+}
+.sub{color:var(--ink-soft); font-size:0.98rem; max-width:60ch;}
+
+section{margin-top:3rem;}
+h2{
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size:1.4rem; margin:0 0 0.2rem; font-weight:600;
+}
+.section-note{color:var(--ink-soft); font-size:0.85rem; margin:0 0 1.2rem;}
+hr.rule{border:none; border-top:1px solid var(--line-strong); margin:0.6rem 0 1.4rem;}
+
+/* menu cards */
+.menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem;}
+.menu-card{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px;
+  padding:1.1rem 1.1rem 1rem; display:flex; flex-direction:column; gap:0.55rem;
+}
+.tag{
+  align-self:flex-start; font-family: ui-monospace, Menlo, monospace; font-size:0.68rem;
+  letter-spacing:0.08em; text-transform:uppercase; padding:0.2rem 0.5rem; border-radius:4px;
+  color:var(--bg); font-weight:600;
+}
+.tag.it{background:var(--tag-it);} .tag.mx{background:var(--tag-mx);}
+.tag.mo{background:var(--tag-mo);} .tag.cj{background:var(--tag-cj);}
+.menu-card h3{margin:0; font-size:1.02rem; line-height:1.3;}
+.menu-card .macro-row{display:flex; gap:1rem; font-size:0.86rem;}
+.menu-card .macro-row div{display:flex; flex-direction:column;}
+.menu-card .macro-row .num{font-size:1.05rem; font-weight:600;}
+.menu-card .macro-row .lbl{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);}
+.menu-card .cost{margin-top:auto; padding-top:0.5rem; border-top:1px dashed var(--line); font-size:0.85rem; color:var(--ink-soft);}
+.menu-card .cost b{color:var(--ink); font-family: ui-monospace, monospace;}
+.badge-new{color:var(--rust); font-weight:600;}
+
+.totals-strip{
+  display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.3rem; padding:0.9rem 1.1rem;
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px; font-size:0.88rem;
+}
+.totals-strip div{display:flex; gap:0.4rem; align-items:baseline;}
+.totals-strip .num{font-family:ui-monospace,monospace; font-weight:600; font-size:1rem;}
+
+/* 7 day grid */
+.week-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:8px;}
+table.week{border-collapse:collapse; width:100%; min-width:760px; font-size:0.87rem;}
+table.week th, table.week td{padding:0.65rem 0.7rem; text-align:left; border-bottom:1px solid var(--line);}
+table.week th{background:var(--bg-card); font-family:ui-monospace,monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);}
+table.week td.day{font-weight:600; white-space:nowrap;}
+table.week tr:last-child td{border-bottom:none;}
+.note-inline{font-size:0.78rem; color:var(--ink-soft); display:block; margin-top:0.15rem;}
+
+/* cart columns */
+.cart-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.1rem; align-items:start;}
+.cart{background:var(--bg-card); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+.cart .store{
+  padding:0.75rem 1rem; font-family:"Iowan Old Style",Palatino,Georgia,serif; font-weight:600;
+  font-size:1.05rem; border-bottom:1px solid var(--line-strong); display:flex; justify-content:space-between; align-items:baseline;
+}
+.cart .store .est{font-family:ui-monospace,monospace; font-size:0.85rem; color:var(--ink-soft); font-weight:400;}
+.cart .progress{
+  font-family:ui-monospace,monospace; font-size:0.76rem; color:var(--olive-soft);
+  padding:0.5rem 1rem 0.2rem; display:block;
+}
+.cart ul{list-style:none; margin:0; padding:0.4rem 0;}
+.cart li{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:0.6rem; padding:0.55rem 1rem;
+  font-size:0.86rem; border-bottom:1px dotted var(--line);
+  cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+  transition:opacity 0.15s ease;
+}
+.cart li:last-of-type{border-bottom:none;}
+.cart li .row{display:flex; align-items:flex-start; gap:0.6rem;}
+.cart li .box{
+  flex:0 0 auto; width:1.05rem; height:1.05rem; margin-top:0.1rem; border-radius:4px;
+  border:1.5px solid var(--line-strong); background:var(--bg-card); position:relative;
+}
+.cart li.checked .box{ background:var(--olive); border-color:var(--olive); }
+.cart li.checked .box::after{
+  content:""; position:absolute; left:3px; top:-1px; width:5px; height:9px;
+  border:solid var(--bg-card); border-width:0 2px 2px 0; transform:rotate(40deg);
+}
+.cart li.checked{ opacity:0.45; }
+.cart li.checked .item-name{ text-decoration:line-through; }
+.cart li .qty{color:var(--ink-soft); font-size:0.78rem;}
+.cart li .price{font-family:ui-monospace,monospace; white-space:nowrap; flex:0 0 auto;}
+.cart .subtotal{
+  display:flex; justify-content:space-between; padding:0.6rem 1rem; font-family:ui-monospace,monospace;
+  font-weight:600; background:var(--bg); border-top:1px solid var(--line-strong);
+}
+.cart .clear-btn{
+  display:block; width:100%; text-align:center; padding:0.45rem; font-size:0.75rem;
+  background:none; border:none; border-top:1px dashed var(--line); color:var(--ink-soft);
+  font-family:ui-monospace,monospace; cursor:pointer;
+}
+.cart .clear-btn:hover{ color:var(--rust); }
+.wt-flag{color:var(--warn); font-size:0.72rem;}
+
+.cart[data-cart^="precheck"] li.checked{ opacity:1; background:color-mix(in srgb, var(--warn) 12%, transparent); }
+.cart[data-cart^="precheck"] li.checked .item-name{ text-decoration:none; font-weight:600; }
+.cart[data-cart^="precheck"] li.checked .box{ background:var(--warn); border-color:var(--warn); }
+.cart[data-cart^="precheck"] li.checked .box::after{ content:"!"; border:none; left:0; top:-3px; width:100%; text-align:center; color:var(--bg-card); font-size:0.78rem; font-weight:800; transform:none; }
+.cart[data-cart^="precheck"] li.checked::after{
+  content:"missing — add to list"; margin-left:auto; padding-left:0.6rem; flex:0 0 auto;
+  font-family:ui-monospace,monospace; font-size:0.68rem; color:var(--warn); align-self:center;
+}
+
+.grand-total{
+  margin-top:1rem; display:flex; justify-content:space-between; align-items:baseline;
+  padding:0.9rem 1.1rem; border:1px solid var(--olive); border-radius:8px; background:var(--bg-card);
+}
+.grand-total .num{font-family:ui-monospace,monospace; font-size:1.3rem; font-weight:700; color:var(--olive);}
+
+/* recipes */
+.recipe{background:var(--bg-card); border:1px solid var(--line); border-radius:8px; padding:1.3rem 1.4rem; margin-bottom:1.4rem;}
+.recipe h3{margin:0 0 0.15rem; font-family:"Iowan Old Style",Palatino,Georgia,serif; font-size:1.2rem;}
+.recipe .meta{font-size:0.8rem; color:var(--ink-soft); margin-bottom:0.9rem;}
+.recipe-cols{display:grid; grid-template-columns:1fr 1.5fr; gap:1.5rem;}
+.recipe-cols h4{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--olive-soft); margin:0 0 0.4rem;}
+.recipe ul, .recipe ol{margin:0; padding-left:1.15rem; font-size:0.9rem;}
+.recipe li{margin:0.28rem 0;}
+.technique-callout{
+  margin-top:0.9rem; padding:0.7rem 0.9rem; border-left:3px solid var(--rust);
+  background:var(--bg); font-size:0.85rem; border-radius:0 6px 6px 0;
+}
+.technique-callout b{color:var(--rust);}
+.honesty{
+  margin-top:0.7rem; padding:0.6rem 0.9rem; border-left:3px solid var(--warn);
+  background:var(--bg); font-size:0.83rem; border-radius:0 6px 6px 0; color:var(--ink-soft);
+}
+.honesty b{color:var(--warn);}
+.advance-flag{
+  display:flex; align-items:flex-start; gap:0.6rem; margin:0 0 1rem;
+  padding:0.7rem 0.9rem; border-radius:6px; background:var(--olive); color:var(--bg-card);
+  font-size:0.87rem; font-weight:500;
+}
+.advance-flag .clock{ font-size:1.05rem; line-height:1; flex:0 0 auto; }
+.advance-flag b{ font-weight:700; }
+@media (max-width:640px){ .recipe-cols{grid-template-columns:1fr;} }
+
+footer{margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft);}
+
+.settings-toggle{
+  display:flex; align-items:center; justify-content:space-between; width:100%;
+  background:var(--bg-card); border:1px solid var(--line); border-radius:8px;
+  padding:0.9rem 1.1rem; cursor:pointer; font-family:inherit; font-size:1rem;
+  color:var(--ink); text-align:left;
+}
+.settings-toggle .gear{ font-size:1.1rem; }
+.settings-toggle .chev{ color:var(--ink-soft); transition:transform 0.2s ease; font-size:0.8rem; }
+.settings-toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); }
+.settings-panel{
+  display:none; margin-top:1rem; background:var(--bg-card); border:1px solid var(--line);
+  border-radius:8px; padding:1.2rem 1.3rem;
+}
+.settings-panel.open{ display:block; }
+.settings-panel .field{ margin-bottom:1rem; display:flex; flex-direction:column; gap:0.35rem; }
+.settings-panel label{
+  font-family:ui-monospace,monospace; font-size:0.7rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--olive-soft); font-weight:600;
+}
+.settings-panel input[type="text"], .settings-panel input[type="number"], .settings-panel textarea{
+  font-family:inherit; font-size:0.9rem; padding:0.55rem 0.7rem; border-radius:6px;
+  border:1px solid var(--line-strong); background:var(--bg); color:var(--ink); width:100%;
+}
+.settings-panel textarea{ resize:vertical; min-height:3.2rem; }
+.settings-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+@media (max-width:520px){ .settings-row{ grid-template-columns:1fr; } }
+.settings-checks{ display:flex; flex-wrap:wrap; gap:0.9rem; }
+.settings-checks label{
+  display:flex; align-items:center; gap:0.4rem; font-family:inherit; text-transform:none;
+  letter-spacing:normal; font-size:0.88rem; color:var(--ink); font-weight:400;
+}
+.settings-checks input[type="checkbox"]{ width:1rem; height:1rem; accent-color:var(--olive); }
+.settings-actions{ display:flex; gap:0.7rem; flex-wrap:wrap; margin-top:0.4rem; }
+.settings-btn{
+  font-family:ui-monospace,monospace; font-size:0.78rem; padding:0.55rem 0.9rem; border-radius:6px;
+  border:1px solid var(--olive); background:var(--olive); color:var(--bg-card); cursor:pointer; font-weight:600;
+}
+.settings-btn.secondary{ background:none; color:var(--olive); }
+.settings-note{ font-size:0.78rem; color:var(--ink-soft); margin-top:0.6rem; line-height:1.5; }
+.settings-copied{ font-size:0.78rem; color:var(--good); font-weight:600; margin-left:0.5rem; opacity:0; transition:opacity 0.2s ease; }
+.settings-copied.show{ opacity:1; }
+
+.catchup-flag{
+  display:flex; align-items:flex-start; gap:0.6rem; margin-top:1.25rem;
+  padding:0.8rem 1rem; border-radius:8px; border:1px solid var(--warn);
+  background:color-mix(in srgb, var(--warn) 10%, transparent); font-size:0.86rem;
+}
+.catchup-flag .icon{ font-size:1.1rem; flex:0 0 auto; }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var PAGE_KEY = "mealprep-2026-08-10";
+  function itemKey(cartName, idx){ return PAGE_KEY + ":" + cartName + ":" + idx; }
+
+  function updateProgress(cartEl){
+    var items = cartEl.querySelectorAll("[data-item]");
+    var checked = cartEl.querySelectorAll("[data-item].checked").length;
+    var progressEl = cartEl.querySelector("[data-progress]");
+    if (progressEl) progressEl.textContent = checked + " / " + items.length + " checked";
+  }
+
+  document.querySelectorAll(".cart").forEach(function(cartEl){
+    var cartName = cartEl.getAttribute("data-cart");
+    var items = cartEl.querySelectorAll("[data-item]");
+    items.forEach(function(li, idx){
+      var key = itemKey(cartName, idx);
+      if (localStorage.getItem(key) === "1") li.classList.add("checked");
+      li.addEventListener("click", function(){
+        li.classList.toggle("checked");
+        localStorage.setItem(key, li.classList.contains("checked") ? "1" : "0");
+        updateProgress(cartEl);
+      });
+    });
+    updateProgress(cartEl);
+
+    var clearBtn = cartEl.querySelector("[data-clear]");
+    if (clearBtn){
+      clearBtn.addEventListener("click", function(e){
+        e.stopPropagation();
+        items.forEach(function(li, idx){
+          li.classList.remove("checked");
+          localStorage.removeItem(itemKey(cartName, idx));
+        });
+        updateProgress(cartEl);
+      });
+    }
+  });
+});
+</script>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Meal Prep · Week of Mon Aug 10 – Sun Aug 16, 2026</p>
+  <h1>Goulash, Orzo, Basil, Ragù</h1>
+  <p class="sub">4 dinners, batch-cooked, mixed across 7 nights. A new cuisine, a new technique, and a genuine pasta night since you asked for those in the mix.</p>
+
+  <div class="catchup-flag">
+    <span class="icon">⚠️</span>
+    <span><b>This week is running two days late</b> — the automatic Saturday run silently failed, so this plan is landing Monday instead. To make up for lost time, the two cook sessions below are shifted to <b>Tuesday</b> and <b>Thursday</b> this week (back to the normal Monday/Wednesday pattern next week). That leaves tonight (Monday) uncovered — see the note in "When to actually cook" for a quick bridge dinner.</span>
+  </div>
+</header>
+
+<section id="menu">
+  <h2>This week's menu</h2>
+  <p class="section-note">Cuisine spread: Hungarian, Greek, Thai, Italian. One brand-new cuisine, one new knife-and-pan technique you'll reuse constantly.</p>
+  <hr class="rule">
+
+  <div class="menu-grid">
+    <div class="menu-card">
+      <span class="tag it">Hungarian <span class="badge-new">· new cuisine</span></span>
+      <h3>Beef Goulash over Egg Noodles</h3>
+      <div class="macro-row">
+        <div><span class="num">~830</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~57g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$16.50</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag mx">Greek <span class="badge-new">· new technique</span></span>
+      <h3>Lemon Chicken &amp; Orzo, Pan Sauce</h3>
+      <div class="macro-row">
+        <div><span class="num">~770</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~48g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$13.50</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag mo">Thai</span>
+      <h3>Basil Chicken (Pad Krapow Gai), Fried Egg</h3>
+      <div class="macro-row">
+        <div><span class="num">~685</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~48g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$12.50</b> total</div>
+    </div>
+
+    <div class="menu-card">
+      <span class="tag cj">Italian</span>
+      <h3>Weeknight Beef Ragù, Short Pasta</h3>
+      <div class="macro-row">
+        <div><span class="num">~830</span><span class="lbl">kcal</span></div>
+        <div><span class="num">~56g</span><span class="lbl">protein</span></div>
+      </div>
+      <div class="cost">2 servings · <b>~$14.50</b> total</div>
+    </div>
+  </div>
+
+  <div class="totals-strip">
+    <div><span class="lbl">8 dinner portions</span></div>
+    <div><span>Avg / portion:</span><span class="num">~779 kcal</span></div>
+    <div><span>Avg / portion:</span><span class="num">~52g protein</span></div>
+    <div><span>Est. grocery total:</span><span class="num">~$70</span></div>
+  </div>
+</section>
+
+<section id="cook-sessions">
+  <h2>When to actually cook</h2>
+  <p class="section-note">Normal pattern is Monday + Wednesday middays — shifted to <b>Tuesday + Thursday</b> just this week since the plan arrived late.</p>
+  <hr class="rule">
+  <div class="advance-flag" style="background:var(--warn); margin-bottom:1rem;"><span class="clock">🍳</span><span><b>Tonight (Monday) bridge dinner:</b> nothing's cooked yet. Keep it simple — eggs (already on your standing restock) scrambled or fried, with whatever quick veg or toast you have, or order in. Not part of the 4-dish plan, just getting you to Tuesday.</span></div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <span class="tag it">Session 1 · Tuesday, 9:15am–2:40pm</span>
+      <h3>Beef Goulash + Lemon Chicken &amp; Orzo</h3>
+      <p style="font-size:0.85rem; color:var(--ink-soft); margin:0;">Sear the beef first (~15 min), get the goulash simmering (2–2.5 hrs, unattended) — then make the chicken and orzo (~35 min) while it cooks. Total active time ~50 min. Covers Tue + Wed dinners.</p>
+    </div>
+    <div class="menu-card">
+      <span class="tag cj">Session 2 · Thursday, 9:15am–2:40pm</span>
+      <h3>Thai Basil Chicken + Beef Ragù</h3>
+      <p style="font-size:0.85rem; color:var(--ink-soft); margin:0;">Ragù first (~30 min, mostly simmering) then the quick basil chicken stir-fry (~15 min) — save frying the eggs and torn basil for each actual dinner, not this session. Total active time ~45 min. Covers Thu + Fri dinners.</p>
+    </div>
+  </div>
+</section>
+
+<section id="grid">
+  <h2>7-day grid</h2>
+  <p class="section-note">Monday is the one-off bridge dinner above. Every other night is a reheat from Tuesday's or Thursday's session.</p>
+  <hr class="rule">
+  <div class="week-scroll">
+    <table class="week">
+      <thead><tr><th>Day</th><th>Dinner (reheat, ~9pm unless noted)</th><th>From</th></tr></thead>
+      <tbody>
+        <tr><td class="day">Mon</td><td>Bridge dinner — eggs + whatever's quick <span class="note-inline">not part of the 4-dish plan</span></td><td>—</td></tr>
+        <tr><td class="day">Tue</td><td>Beef Goulash over egg noodles <span class="note-inline">— cooked fresh today, eaten fresh</span></td><td>Session 1</td></tr>
+        <tr><td class="day">Wed</td><td>Lemon Chicken &amp; Orzo</td><td>Session 1</td></tr>
+        <tr><td class="day">Thu</td><td>Thai Basil Chicken — fry the egg and add basil fresh tonight <span class="note-inline">— cooked fresh today</span></td><td>Session 2</td></tr>
+        <tr><td class="day">Fri</td><td>Weeknight Beef Ragù, short pasta</td><td>Session 2</td></tr>
+        <tr><td class="day">Sat</td><td>Goulash, portion 2 <span class="note-inline">— day 4, see honesty note on the noodles</span></td><td>Session 1</td></tr>
+        <tr><td class="day">Sun</td><td>Clean-out bowl: last orzo portion + last ragù portion, plated together</td><td>Session 1 + 2</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="pre-check">
+  <h2>Pre-shopping check</h2>
+  <p class="section-note">Before you head out — this week's recipes assume you already have these. Tap anything you're actually OUT of; that's your cue to add it to the list below before you go.</p>
+  <hr class="rule">
+  <div class="cart-grid">
+    <div class="cart" data-cart="precheck-pantry">
+      <div class="store">Pantry</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Salt</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Black pepper</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Olive oil <span class="qty">· used across all four dinners</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Garlic powder</span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Dried oregano <span class="qty">· for the Greek chicken</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Red pepper flakes <span class="qty">· for the ragù</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Bay leaf <span class="qty">· for the goulash</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Sugar <span class="qty">· a pinch, for the Thai sauce</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Soy sauce <span class="qty">· check you're not out — used in the Thai dish</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="cart" data-cart="precheck-fridge">
+      <div class="store">Fridge</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Eggs <span class="qty">· you'll need extras this week: 2 for tonight's bridge dinner + 2 for the Thai dish, on top of the standing dozen</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover onion/garlic from last week <span class="qty">· all four dinners use both</span></span></span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover fresh herbs from last week</span></span></li>
+      </ul>
+    </div>
+
+    <div class="cart" data-cart="precheck-freezer">
+      <div class="store">Freezer</div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Any leftover portions from last week <span class="qty">· worth eating down before adding more</span></span></span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="section-note" style="margin-top:0.6rem;"><b style="color:var(--olive);">Sweet Hungarian paprika is NOT the same as your regular paprika</b> — it's new this week for the goulash and is on the ShopRite/Trader Joe's list below, not assumed above. Fish sauce and oyster sauce for the Thai dish are also new pantry items if you haven't bought them before.</p>
+</section>
+
+<section id="cart">
+  <h2>Draft shopping list — by store</h2>
+  <p class="section-note">Plain quantities, not exact SKUs. Items flagged <span class="wt-flag">⚠ sold by weight</span> will swing the real total. Tap an item to check it off — progress saves on this device.</p>
+  <hr class="rule">
+
+  <div class="cart-grid">
+    <div class="cart" data-cart="shoprite">
+      <div class="store">ShopRite <span class="est">~$29.60</span></div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Beef chuck, cut for stew <span class="wt-flag">⚠ ~1 lb @ up to 30% off this week per circular, exact price not confirmed — check in-store</span></span></span><span class="price">~$6.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Chicken thighs, boneless skinless <span class="wt-flag">⚠ ~12 oz @ $3.49/lb base price, poultry advertised up to 40% off this week per circular but exact cut/price not confirmed</span></span></span><span class="price">~$2.62</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Eggs, 1 dozen large <span class="qty">· standing restock, verified range $3.99–4.49</span></span></span><span class="price">$3.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Egg noodles, wide, 12 oz bag</span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Sweet Hungarian paprika <span class="qty">· NOT your regular paprika — new pantry item, lasts months</span></span></span><span class="price">$3.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Yellow onions <span class="qty">· 3 count, shared across all 4 dishes</span></span></span><span class="price">$1.79</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Garlic <span class="qty">· 1 head</span></span></span><span class="price">$0.89</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Red bell pepper <span class="qty">· 1, for the goulash</span></span></span><span class="price">$0.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Lemons <span class="qty">· 2, for the Greek chicken</span></span></span><span class="price">$1.00</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Jasmine rice, small bag <span class="qty">· for the Thai dish</span></span></span><span class="price">$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Short pasta (gemelli or similar), 1 box</span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Tomato paste, small can</span></span><span class="price">$0.89</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>~$29.62</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
+    </div>
+
+    <div class="cart" data-cart="traderjoes">
+      <div class="store">Trader Joe's <span class="est">~$16.55</span></div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Ground chicken <span class="wt-flag">⚠ ~14 oz @ ~$3/lb, verified range $2.99–3.69/lb</span></span></span><span class="price">$2.63</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Lean ground beef (90/10) <span class="wt-flag">⚠ 1 lb — TJ's standard 80/20 verified at $6.49/lb; leaner blend may run a bit higher, check the case</span></span></span><span class="price">~$6.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Orzo pasta, 1 lb box <span class="qty">· verified $0.99</span></span></span><span class="price">$0.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Feta cheese, small tub <span class="qty">· optional for the Greek dish, verified ~$3.29 — some lactose, skip or use lactose-free alt if it bothers you</span></span></span><span class="price">$3.29</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Heavy cream, small carton <span class="qty">· optional swirl for the ragù, or use the lactose-free option from Whole Foods instead</span></span></span><span class="price">$3.15</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>~$16.55</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
+    </div>
+
+    <div class="cart" data-cart="wholefoods">
+      <div class="store">Whole Foods Market <span class="est">~$12.46</span></div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh basil, 1 clamshell <span class="qty">· stand-in for Thai holy basil — see the honesty note on the Thai recipe</span></span></span><span class="price">$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh dill or parsley, 1 bunch <span class="qty">· for the Greek chicken</span></span></span><span class="price">$1.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Lactose-free sour cream or heavy cream, small <span class="qty">· optional, for the goulash and/or ragù instead of dairy versions</span></span></span><span class="price">$4.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fresh parsley, 1 bunch <span class="qty">· for the goulash</span></span></span><span class="price">$1.99</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>$11.96</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
+    </div>
+
+    <div class="cart" data-cart="foodbazaar">
+      <div class="store">Food Bazaar <span class="est">~$10.76</span></div>
+      <span class="progress" data-progress></span>
+      <ul>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Fish sauce, small bottle <span class="qty">· new pantry item if you don't already have it, lasts a long time — estimate, no confirmed price found</span></span></span><span class="price">~$3.99</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Oyster sauce, small bottle <span class="qty">· same as above, new pantry item — estimate</span></span></span><span class="price">~$3.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Thai or serrano chilies, a few <span class="qty">· optional, chili flakes work fine if you'd rather skip a special item</span></span></span><span class="price">$1.49</span></li>
+        <li data-item><span class="row"><span class="box"></span><span class="item-name">Green onions, 1 bunch</span></span><span class="price">$1.79</span></li>
+      </ul>
+      <div class="subtotal"><span>Subtotal</span><span>~$10.76</span></div>
+      <button class="clear-btn" data-clear type="button">Reset checks</button>
+    </div>
+  </div>
+
+  <div class="grand-total">
+    <span>Estimated total across all 4 stores</span>
+    <span class="num">~$71</span>
+  </div>
+  <p class="section-note" style="margin-top:0.6rem;">Orzo, TJ's ground beef base price, and TJ's feta are confirmed current prices. ShopRite's circular this week specifically advertises "up to 30% off beef, up to 40% off poultry" — I couldn't pin down the exact per-cut discount, so those two lines are flagged as estimates off the regular price; the real total may come in lower. Fish sauce and oyster sauce prices are estimates — no reliable current listing turned up for either. Comfortably under your $100 budget either way.</p>
+</section>
+
+<section id="recipes">
+  <h2>Recipe page</h2>
+  <p class="section-note">Full method for all four, including the new cuisine and the new technique.</p>
+  <hr class="rule">
+
+  <div class="recipe">
+    <h3>Beef Goulash over Egg Noodles <span class="badge-new">— new cuisine</span></h3>
+    <div class="meta">Hungarian · serves 2 · ~15 min active, ~2–2.5 hr mostly-unattended</div>
+    <div class="honesty" style="border-left-color:var(--olive-soft);"><b>Source:</b> adapted from <a href="https://www.recipetineats.com/hungarian-goulash-recipe/" target="_blank" rel="noopener">RecipeTin Eats' Hungarian Goulash</a> — Nagi Maehashi's recipes are developed through repeated home testing and are consistently among the most reliable, reader-vetted versions of classic dishes online. Adapted here: scaled down to a 2-serving batch from her larger yield, caraway made optional since it's a less common pantry item, egg noodles used as the starch instead of her suggested bread/mash for a heartier one-bowl dinner.</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>1 lb beef chuck, cut into 1.5" chunks</li>
+          <li>2 tbsp sweet Hungarian paprika (not your regular paprika)</li>
+          <li>1 onion, 2 garlic cloves, 1 red bell pepper</li>
+          <li>1 tbsp tomato paste, 2 cups beef broth, 1 bay leaf</li>
+          <li>6 oz egg noodles</li>
+          <li>Sour cream (or lactose-free alt) and parsley to finish</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Sear the beef hard in batches — don't crowd the pot, or it steams instead of browning. Remove.</li>
+          <li>Soften the onion and bell pepper in the same pot. Pull the pot off the heat, stir in the paprika, and let it sit 20–30 seconds before adding liquid — paprika scorches and turns bitter over direct high heat, so this off-heat blooming step matters.</li>
+          <li>Add garlic, tomato paste, bay leaf, broth, and the beef back in. Cover and simmer low 2–2.5 hours until fork-tender.</li>
+          <li>Boil the egg noodles just before serving each night — they're quick enough not to need pre-cooking.</li>
+          <li>Serve the goulash over noodles with a dollop of sour cream (or lactose-free alt) and chopped parsley.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="honesty"><b>Meal-prep honesty:</b> the stew itself is a great keeper — improves overnight, freezes well, same category as barbacoa was last week. Cook the noodles fresh each night rather than batching them; they only take 8–10 minutes and pre-cooked noodles left sitting in the fridge for days turn gummy.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Lemon Chicken &amp; Orzo <span class="badge-new">— new technique</span></h3>
+    <div class="meta">Greek · serves 2 · ~35 min</div>
+    <div class="honesty" style="border-left-color:var(--olive-soft);"><b>Source:</b> adapted from <a href="https://www.themediterraneandish.com/greek-baked-chicken-orzo-recipe/" target="_blank" rel="noopener">The Mediterranean Dish's One-Pan Greek Chicken and Orzo</a> — Suzy Karadsheh's site is built specifically around tested, reader-reviewed Mediterranean cooking. Adapted here: stovetop instead of her baked version so it fits a 35-minute cook-session slot, feta made optional given your lactose sensitivity, quantities scaled to 2 servings.</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>12 oz chicken thighs</li>
+          <li>1 lemon (juice + zest), 3 garlic cloves, 1 tsp dried oregano</li>
+          <li>1 cup orzo (dry), 2 cups chicken broth</li>
+          <li>Olive oil</li>
+          <li>Feta (optional) or lactose-free alt, fresh dill or parsley</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Season the chicken and sear hard in olive oil until deeply golden on both sides — it won't be cooked through yet. Remove.</li>
+          <li>Off the heat, pour in a splash of the broth and the lemon juice, then scrape the bottom of the pan with a wooden spoon — those browned bits (the fond) are concentrated flavor, not something to wash away.</li>
+          <li>Add the rest of the broth, garlic, and oregano, bring to a simmer, stir in the dry orzo, and nestle the chicken back on top.</li>
+          <li>Cover and cook 12–15 minutes until the orzo is tender and most of the liquid is absorbed.</li>
+          <li>Finish with lemon zest, chopped dill or parsley, and crumbled feta if using.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="technique-callout"><b>New technique — deglazing / building a pan sauce from the fond:</b> after searing meat, the browned bits stuck to the pan are flavor, not mess. A splash of liquid — broth, wine, citrus juice, even water — lifts them back into the dish with a wooden spoon, and that becomes the base of your sauce instead of an empty pan you're about to scrub. Same move works in French, Italian, and here, Greek cooking.</div>
+    <div class="honesty"><b>Meal-prep honesty:</b> orzo firms up and can turn a little gluey past 2–3 days — this dish only needs to hold from Tuesday's cook to Wednesday's dinner, so it's fine as-is. If you ever stretch it further, undercook the orzo slightly and loosen with a splash of broth on reheat.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Thai Basil Chicken (Pad Krapow Gai)</h3>
+    <div class="meta">Thai · serves 2 · ~20 min</div>
+    <div class="honesty" style="border-left-color:var(--olive-soft);"><b>Source:</b> adapted from <a href="https://hot-thai-kitchen.com/holy-basil-stir-fry/" target="_blank" rel="noopener">Hot Thai Kitchen's Pad Kra Pao</a> — Pailin Chongchitnant is a professionally trained Thai cooking instructor whose recipes are widely regarded as the standard for accessible, authentic home versions of Thai dishes. Adapted here: ground chicken instead of her typical ground pork option to fit your protein preferences, quantities scaled to 2 servings.</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>14 oz ground chicken</li>
+          <li>4–5 garlic cloves, 2–3 Thai or serrano chilies (or chili flakes), minced/pounded together</li>
+          <li>1.5 tbsp oyster sauce, 1 tbsp fish sauce, 1 tsp soy sauce, pinch of sugar</li>
+          <li>1.5 cups fresh basil leaves</li>
+          <li>Jasmine rice, 2 eggs</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Cook the rice.</li>
+          <li>Pound or mince the garlic and chilies into a rough paste.</li>
+          <li>Stir-fry the paste in hot oil ~20 seconds until fragrant, add the ground chicken, and break it up as it cooks through.</li>
+          <li>Add oyster sauce, fish sauce, soy sauce, and sugar, toss to coat.</li>
+          <li>Off the heat, fold in the basil just until wilted — it turns dull and loses aroma if it cooks too long.</li>
+          <li>Fry an egg per serving with crispy edges and a runny yolk. Serve the chicken over rice, egg on top.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="honesty"><b>Meal-prep honesty, twofold:</b> first, authentic pad krapow uses Thai holy basil, which none of your four stores reliably carry — regular Italian basil (on the shopping list) is the standard substitute and gets you close, but the flavor is genuinely a step removed from the real thing. Second, the fried egg and basil don't hold — cook those fresh each night, not ahead. The stir-fried chicken itself reheats fine in a hot pan; just add a fresh egg and freshly torn basil at serving both nights.</div>
+  </div>
+
+  <div class="recipe">
+    <h3>Weeknight Beef Ragù, Short Pasta</h3>
+    <div class="meta">Italian · serves 2 · ~30 min</div>
+    <div class="honesty" style="border-left-color:var(--olive-soft);"><b>Source:</b> adapted from Bon Appétit's <a href="https://www.punchfork.com/recipe/Weeknight-Ragu-Bon-Appetit" target="_blank" rel="noopener">Weeknight Ragù</a> (Chris Morocco) — a widely-cooked, well-reviewed recipe built specifically to compress a slow-cooked-tasting ragù into a weeknight timeline. Adapted here: lean ground beef instead of the original's pork/turkey option to fit your protein preferences, cream made optional/lactose-free given your sensitivity, scaled to 2 servings.</div>
+    <div class="recipe-cols">
+      <div>
+        <h4>You'll use</h4>
+        <ul>
+          <li>1 lb lean ground beef (90/10)</li>
+          <li>1 onion, 2 garlic cloves, red pepper flakes</li>
+          <li>2 tbsp tomato paste</li>
+          <li>6 oz short pasta (gemelli or similar)</li>
+          <li>Splash of cream or lactose-free cream, grated cheese to finish (optional)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <ol>
+          <li>Brown the beef hard in a wide pan, breaking it into small pieces — don't drain the fat, it's flavor.</li>
+          <li>Add the onion, garlic, and red pepper flakes, cook until the onion softens.</li>
+          <li>Stir in the tomato paste and cook 1–2 minutes until it darkens and smells toasted, same principle as last week's tagine — don't skip this, it's most of the depth in a quick sauce like this.</li>
+          <li>Add a splash of water or broth, simmer 15–20 minutes until it thickens into a real sauce.</li>
+          <li>Boil the pasta, toss with the ragù and a splash of pasta water, finish with a swirl of cream (or lactose-free alt) and grated cheese.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="honesty"><b>Meal-prep honesty:</b> the ragù itself is a strong keeper, right up there with the goulash. If you use the dairy cream, add it fresh at serving rather than simmering it into the batch ahead of time — it can split slightly on reheat. The lactose-free alternatives behave the same way, so treat it as a finishing touch either way, not a batched ingredient.</div>
+  </div>
+</section>
+
+<section id="settings">
+  <button class="settings-toggle" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settingsPanel">
+    <span><span class="gear">⚙️</span>&nbsp; Your preferences</span>
+    <span class="chev">▾</span>
+  </button>
+
+  <div class="settings-panel" id="settingsPanel">
+    <p class="settings-note" style="margin-top:0; margin-bottom:1rem;">Pre-filled with what's currently set. Edit anything, then tap <b>Copy update for Claude</b> and paste the result into your chat — that's what actually changes next week's plan, since this page can't write back to the system that generates it.</p>
+
+    <div class="settings-row">
+      <div class="field">
+        <label for="pf-cal">Daily calorie target</label>
+        <input type="number" id="pf-cal" value="2170">
+      </div>
+      <div class="field">
+        <label for="pf-protein">Daily protein target (g)</label>
+        <input type="number" id="pf-protein" value="125">
+      </div>
+    </div>
+
+    <div class="settings-row">
+      <div class="field">
+        <label for="pf-budget">Weekly grocery budget ($)</label>
+        <input type="number" id="pf-budget" value="100">
+      </div>
+      <div class="field">
+        <label for="pf-zip">Zip code (for prices/circulars)</label>
+        <input type="text" id="pf-zip" value="07657">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Lactose</label>
+      <div class="settings-checks">
+        <label><input type="checkbox" id="pf-lactose" checked> Lactose sensitive</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="pf-likes">Likes</label>
+      <input type="text" id="pf-likes" value="pasta, chicken, beef, stews">
+    </div>
+    <div class="field">
+      <label for="pf-dislikes">Dislikes / won't eat</label>
+      <input type="text" id="pf-dislikes" value="mushrooms">
+    </div>
+
+    <div class="field">
+      <label>Stores to shop</label>
+      <div class="settings-checks">
+        <label><input type="checkbox" id="pf-store-shoprite" checked> ShopRite</label>
+        <label><input type="checkbox" id="pf-store-tj" checked> Trader Joe's</label>
+        <label><input type="checkbox" id="pf-store-wf" checked> Whole Foods Market</label>
+        <label><input type="checkbox" id="pf-store-fb" checked> Food Bazaar</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="pf-restock">Standing weekly restock</label>
+      <input type="text" id="pf-restock" value="eggs (1 dozen)">
+    </div>
+
+    <div class="field">
+      <label for="pf-schedule">Weekly schedule (used to time cook sessions &amp; reminders)</label>
+      <textarea id="pf-schedule">Mon-Thu: work 8:00-9:15am, free 9:15am-2:40pm, work 2:40-6:00pm, zoom class away from home 6:00-9:00pm, home from ~9pm. Fri-Sun: busy/unpredictable.</textarea>
+    </div>
+
+    <div class="field">
+      <label for="pf-color">Color scheme</label>
+      <input type="text" id="pf-color" value="pink and black">
+    </div>
+
+    <div class="settings-actions">
+      <button class="settings-btn" id="pf-copy" type="button">Copy update for Claude</button>
+      <button class="settings-btn secondary" id="pf-reset" type="button">Reset to current saved</button>
+      <span class="settings-copied" id="pf-copied">Copied ✓ — paste into chat</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Locked in for next week: cuisines used (Hungarian, Greek, Thai, Italian) and the technique taught (deglazing/pan sauce) are logged so future weeks rotate to new ones and don't repeat this week's dinners. Normal Monday/Wednesday cook-session timing resumes next week. Reply anytime to swap a dish or adjust anything.
+</footer>
+
+<script>
+(function(){
+  var SETTINGS_KEY = "mealprep-settings-v1";
+  var FIELD_IDS = ["pf-cal","pf-protein","pf-budget","pf-zip","pf-lactose",
+    "pf-likes","pf-dislikes","pf-store-shoprite","pf-store-tj","pf-store-wf","pf-store-fb",
+    "pf-restock","pf-schedule","pf-color"];
+
+  function getEl(id){ return document.getElementById(id); }
+  function isCheckbox(el){ return el.type === "checkbox"; }
+
+  function readDefaults(){
+    var out = {};
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      out[id] = isCheckbox(el) ? el.checked : el.value;
+    });
+    return out;
+  }
+
+  function applyValues(values){
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el || !(id in values)) return;
+      if (isCheckbox(el)) el.checked = values[id]; else el.value = values[id];
+    });
+  }
+
+  function saveCurrent(){
+    var values = {};
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      values[id] = isCheckbox(el) ? el.checked : el.value;
+    });
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(values));
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var defaults = readDefaults();
+
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(SETTINGS_KEY)); } catch(e){}
+    if (saved) applyValues(saved);
+
+    FIELD_IDS.forEach(function(id){
+      var el = getEl(id);
+      if (!el) return;
+      el.addEventListener("input", saveCurrent);
+      el.addEventListener("change", saveCurrent);
+    });
+
+    var toggle = getEl("settingsToggle");
+    var panel = getEl("settingsPanel");
+    toggle.addEventListener("click", function(){
+      var open = panel.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    getEl("pf-reset").addEventListener("click", function(){
+      applyValues(defaults);
+      localStorage.removeItem(SETTINGS_KEY);
+    });
+
+    getEl("pf-copy").addEventListener("click", function(){
+      var stores = [];
+      if (getEl("pf-store-shoprite").checked) stores.push("ShopRite");
+      if (getEl("pf-store-tj").checked) stores.push("Trader Joe's");
+      if (getEl("pf-store-wf").checked) stores.push("Whole Foods Market");
+      if (getEl("pf-store-fb").checked) stores.push("Food Bazaar");
+
+      var msg = "Update my meal-prep preferences:\n" +
+        "- Daily target: " + getEl("pf-cal").value + " cal / " + getEl("pf-protein").value + "g protein\n" +
+        "- Weekly budget: $" + getEl("pf-budget").value + "\n" +
+        "- Zip: " + getEl("pf-zip").value + "\n" +
+        "- Lactose sensitive: " + (getEl("pf-lactose").checked ? "yes" : "no") + "\n" +
+        "- Likes: " + getEl("pf-likes").value + "\n" +
+        "- Dislikes: " + getEl("pf-dislikes").value + "\n" +
+        "- Stores: " + stores.join(", ") + "\n" +
+        "- Standing restock: " + getEl("pf-restock").value + "\n" +
+        "- Schedule: " + getEl("pf-schedule").value + "\n" +
+        "- Color scheme: " + getEl("pf-color").value;
+
+      function showCopied(){
+        var el = getEl("pf-copied");
+        el.classList.add("show");
+        setTimeout(function(){ el.classList.remove("show"); }, 2200);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(showCopied, function(){
+          window.prompt("Copy this and paste it into chat:", msg);
+        });
+      } else {
+        window.prompt("Copy this and paste it into chat:", msg);
+      }
+    });
+  });
+})();
+</script>
+
+</div>
