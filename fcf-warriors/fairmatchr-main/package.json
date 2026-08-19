@@ -1,12 +1,12 @@
 {
-  "name": "study-buddy-matcher",
+  "name": "fcf-warriors-fair-match",
   "version": "1.0.0",
   "private": true,
-  "description": "A clone-and-customize study-buddy matching PWA. Cloudflare Pages + D1.",
+  "description": "FCF Warriors' Iowa State Fair personality matching PWA. Cloudflare Pages + D1.",
   "scripts": {
-    "db:create": "npx wrangler d1 create studybuddy-db",
-    "db:init": "npx wrangler d1 execute studybuddy-db --remote --file schema.sql",
-    "db:reset": "npx wrangler d1 execute studybuddy-db --remote --command \"DELETE FROM messages; DELETE FROM matches; DELETE FROM profiles;\"",
+    "db:create": "npx wrangler d1 create fcf-warriors-db",
+    "db:init": "npx wrangler d1 execute fcf-warriors-db --remote --file schema.sql",
+    "db:reset": "npx wrangler d1 execute fcf-warriors-db --remote --command \"DELETE FROM messages; DELETE FROM matches; DELETE FROM profiles;\"",
     "dev": "npx wrangler pages dev ./public",
     "deploy": "npx wrangler pages deploy",
     "set-key": "npx wrangler pages secret put ANTHROPIC_API_KEY"

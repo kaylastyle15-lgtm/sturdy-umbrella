@@ -11,7 +11,7 @@
    - API calls (/api/...): always go to the network — they need live data.
    Bump CACHE_VERSION whenever you change files so phones pick up the update.
    ========================================================================== */
-const CACHE_VERSION = "studybuddy-v2";
+const CACHE_VERSION = "fcf-warriors-v1";
 const SHELL = [
   "/",
   "/theme.css", "/styles.css", "/app.js", "/questions.js",
