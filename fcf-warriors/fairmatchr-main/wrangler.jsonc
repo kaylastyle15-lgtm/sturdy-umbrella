@@ -1,0 +1,21 @@
+{
+  // ==========================================================================
+  // wrangler.jsonc — tells Cloudflare how to build & run this app.
+  //   name .......... the Pages project name (must be unique in your account)
+  //   pages_build_output_dir  the folder of static files to publish (/public)
+  //   d1_databases .. connects our database; "binding": "DB" is how the code
+  //                   reaches it (context.env.DB in every Function).
+  // The ANTHROPIC_API_KEY is NOT here — it's a secret you set separately:
+  //   npx wrangler pages secret put ANTHROPIC_API_KEY
+  // ==========================================================================
+  "name": "studybuddy-matcher",
+  "compatibility_date": "2026-08-01",
+  "pages_build_output_dir": "./public",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "studybuddy-db",
+      "database_id": "ffde2b09-23ca-4e3e-b659-ec883066df23"
+    }
+  ]
+}

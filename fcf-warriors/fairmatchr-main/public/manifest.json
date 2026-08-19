@@ -1,0 +1,13 @@
+{
+  "name": "Study Buddy Matcher",
+  "short_name": "Study Buddy",
+  "description": "Answer a few questions, get matched with a study buddy, and say hi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf6ef",
+  "theme_color": "#ff5a4d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
