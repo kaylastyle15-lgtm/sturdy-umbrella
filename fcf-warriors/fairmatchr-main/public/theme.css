@@ -1,0 +1,59 @@
+/* ==========================================================================
+   theme.css — THE DESIGN LAYER (change your app's whole look right here)
+   --------------------------------------------------------------------------
+   Every color, font, and shape lives in these CSS variables. Change a value
+   here and it updates everywhere. You do NOT need to touch any other CSS.
+
+   HOW COLOR WORKS (plain version):
+   - A hex code like #ff5a4d is Red-Green-Blue written in base-16.
+   - Pick a background, a text color that's easy to read on it, and ONE accent
+     color for buttons and highlights. Keep the accent for "do this" moments.
+   - Test contrast: dark text on light background (or the reverse). If you have
+     to squint, it's wrong.
+   ========================================================================== */
+
+:root {
+  /* ---- BRAND COLORS ----
+     Iowa State Fair palette: butter-yellow background, fairground red for
+     the primary action, and a deep blue-ribbon for the secondary accent. */
+  --bg:        #fdf6e3;   /* page background (butter cream) */
+  --surface:   #ffffff;   /* cards sit on top of the page */
+  --ink:       #2b2117;   /* main text */
+  --muted:     #7a6a55;   /* quieter text (labels, hints) */
+  --accent:    #c8102e;   /* PRIMARY action color (buttons, links) — fair red */
+  --accent-ink:#ffffff;   /* text that sits on the accent color */
+  --secondary: #1e3a8a;   /* second color for tags/status — blue-ribbon navy */
+  --line:      #ecdcb0;   /* thin borders */
+  --ok:        #1e3a8a;   /* "confirmed" / good */
+  --wait:      #b45309;   /* "waiting" / caution */
+
+  /* ---- TYPE (fonts) ----
+     No web fonts on purpose: the app works offline and loads instantly.
+     Georgia gives headings an editorial, human feel; the system font keeps
+     body text crisp on every device. */
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* ---- SHAPE & SPACING ---- */
+  --radius:    14px;      /* how round corners are */
+  --radius-lg: 18px;      /* bigger cards */
+  --gap:       16px;      /* standard spacing unit */
+  --shadow:    0 1px 2px rgba(28,27,26,.06), 0 8px 24px rgba(28,27,26,.06);
+  --shadow-lg: 0 24px 60px rgba(28,27,26,.18);   /* the "phone" frame on desktop */
+  --maxw:      640px;     /* how wide long-form content gets */
+  --appw:      480px;     /* the app column width — phone-like on big screens */
+
+  /* ---- APP SHELL EXTRAS ----
+     Soft, translucent versions of the brand colors (used for highlights,
+     selected options, and status pills). Change the color above and these
+     follow — they're the SAME hue, just faded. */
+  --accent-soft:    rgba(200,16,46,.12);    /* faded fair-red background */
+  --accent-ring:    rgba(200,16,46,.30);    /* focus glow */
+  --secondary-soft: rgba(30,58,138,.12);    /* faded navy background */
+  --backdrop:       #f3e6bd;                /* deeper butter tone behind the phone frame */
+}
+
+/* ---- COPY (words the app says) live near the top so they're easy to find ----
+   Most on-screen words are in the HTML files. The app NAME is set in one place:
+   change --app-name here AND the <title>/manifest if you rename the app. */
+:root { --app-name: "FCF Warriors Fair Match"; }

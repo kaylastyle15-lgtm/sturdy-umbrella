@@ -1,0 +1,302 @@
+/* ==========================================================================
+   styles.css — layout + components for the app shell. Reads every color, font
+   and shape from theme.css, so you rebrand in theme.css, not here.
+   ========================================================================== */
+
+* { box-sizing: border-box; }
+/* Make the HTML `hidden` attribute win over our own display rules (e.g. the
+   tab bar uses `hidden` to disappear during sign-up). */
+[hidden] { display: none !important; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ------------------------------  APP SHELL  ------------------------------ */
+/* One column that fills the screen. Top bar and tabs stay put; the middle
+   scrolls. On a big screen it becomes a centered "phone". */
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--appw);
+  height: 100dvh;
+  margin: 0 auto;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  height: 58px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  z-index: 5;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-logo { width: 30px; height: 30px; border-radius: 9px; }
+.brand-name { font-family: var(--font-display); font-size: 19px; letter-spacing: -0.01em; }
+.whoami { display: flex; align-items: center; gap: 8px; }
+.who-name { font-size: 14px; font-weight: 600; color: var(--muted); }
+.avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center; font-size: 14px; font-weight: 700;
+}
+
+.view {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 18px 26px;
+}
+
+/* Bottom tabs */
+.tabbar {
+  flex: 0 0 auto;
+  display: flex;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tab {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 9px 0 11px;
+  background: none; border: 0; cursor: pointer;
+  color: var(--muted); font-family: inherit; font-size: 11px; font-weight: 600;
+}
+.tab svg { width: 23px; height: 23px; fill: currentColor; }
+.tab.is-active { color: var(--accent); }
+
+/* ------------------------------  BUTTONS  ------------------------------- */
+button { font-family: inherit; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: var(--accent-ink);
+  border: 0; border-radius: 12px;
+  padding: 13px 18px; font-size: 16px; font-weight: 600; line-height: 1;
+  cursor: pointer; text-decoration: none;
+  transition: transform .05s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(.97); }
+.btn:active { transform: translateY(1px); }
+.btn.block { width: 100%; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+.linkbtn {
+  background: none; border: 0; cursor: pointer;
+  color: var(--accent); font-family: inherit; font-size: 14px; font-weight: 600;
+  padding: 8px;
+}
+.linkbtn.center { display: block; margin: 16px auto 0; }
+
+/* ------------------------------  PILLS  --------------------------------- */
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+.pill.matched   { background: var(--accent-soft);    color: var(--accent); }
+.pill.confirmed { background: var(--secondary-soft); color: var(--ok); }
+.pill.waiting   { background: rgba(180,83,9,.12);    color: var(--wait); }
+.pill.ai        { background: var(--secondary-soft); color: var(--secondary); }
+.pill.rule      { background: rgba(28,27,26,.08);    color: var(--muted); }
+
+/* ------------------------------  WELCOME  ------------------------------- */
+.welcome {
+  min-height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 20px 6px;
+}
+.welcome-art img { width: 88px; height: 88px; border-radius: 22px; box-shadow: var(--shadow); margin-bottom: 14px; }
+.welcome h1 { font-family: var(--font-display); font-size: 30px; line-height: 1.15; margin: 4px 0 6px; letter-spacing: -0.01em; }
+.welcome-sub { color: var(--muted); max-width: 32ch; margin: 0 0 22px; }
+.welcome .btn.block { max-width: 320px; }
+.welcome .linkbtn { margin-top: 6px; }
+
+/* ------------------------------  WIZARD  -------------------------------- */
+.wizard { min-height: 100%; display: flex; flex-direction: column; }
+.progress { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s ease; }
+.step-count { margin: 12px 0 4px; font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+.wizard-title { font-family: var(--font-display); font-size: 24px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.01em; }
+.wizard-sub { color: var(--muted); margin: 0; }
+.wizard-body { flex: 1; margin-top: 18px; }
+.wizard-error { color: var(--accent); font-size: 14px; font-weight: 600; min-height: 18px; margin: 12px 0 0; }
+.wizard-nav { display: flex; gap: 10px; margin-top: 18px; }
+.wizard-nav .ghost { flex: 0 0 auto; }
+.wizard-nav .btn:not(.ghost) { flex: 1; }
+
+/* Fields (name / email / age / free text) */
+.field { display: block; margin-bottom: 16px; }
+.field-label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 7px; }
+.field-hint { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.text-input {
+  width: 100%; padding: 13px 15px;
+  font-size: 16px; /* 16px stops iOS zooming on focus */
+  font-family: inherit; color: var(--ink);
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.text-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+
+/* Tappable single-choice cards */
+.options { display: grid; gap: 10px; }
+.option {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; text-align: left;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px;
+  padding: 15px 16px; font-family: inherit; font-size: 16px; font-weight: 500; color: var(--ink);
+  cursor: pointer; transition: border-color .15s ease, background .15s ease, transform .05s ease;
+}
+.option:hover { border-color: var(--accent); }
+.option:active { transform: scale(.99); }
+.option.is-selected { border-color: var(--accent); background: var(--accent-soft); }
+.option-check { position: relative; width: 22px; height: 22px; flex: none; border: 2px solid var(--line); border-radius: 999px; }
+.option.is-selected .option-check { border-color: var(--accent); background: var(--accent); }
+.option.is-selected .option-check::after {
+  content: "✓"; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent-ink); font-size: 13px; font-weight: 800;
+}
+
+/* Multi-select chips */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px;
+  padding: 10px 16px; font-family: inherit; font-size: 15px; font-weight: 500; color: var(--ink);
+  cursor: pointer; transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.is-selected { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+/* Branch follow-up */
+.branch { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); display: grid; gap: 10px; }
+.branch-label { font-weight: 600; margin: 0 0 2px; }
+
+/* ------------------------------  FINDING  ------------------------------- */
+.finding {
+  min-height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 10px;
+}
+.finding h1 { font-family: var(--font-display); font-size: 24px; margin: 8px 0 0; }
+.finding-emoji, .empty-emoji { font-size: 40px; line-height: 1; }
+.spinner {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 4px solid var(--line); border-top-color: var(--accent);
+  animation: spin .9s linear infinite;
+}
+
+/* ------------------------------  SCREENS  ------------------------------- */
+.screen-title { font-family: var(--font-display); font-size: 24px; margin: 2px 0 16px; letter-spacing: -0.01em; }
+.card {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow); padding: 20px; margin-bottom: 14px;
+}
+.center-card { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 34px 20px; }
+.small { font-size: 13px; }
+.muted { color: var(--muted); }
+.center { text-align: center; }
+a { color: var(--accent); }
+
+/* Match — waiting */
+.waiting-card { text-align: center; }
+.waiting-card h2 { font-family: var(--font-display); font-size: 22px; margin: 4px 0 8px; }
+.pulse {
+  width: 56px; height: 56px; margin: 4px auto 12px; border-radius: 50%;
+  background: var(--accent-soft); display: grid; place-items: center;
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+.pulse span { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); }
+.mini-note { background: var(--accent-soft); color: var(--ink); border-radius: 12px; padding: 12px 14px; font-size: 14px; text-align: left; margin: 16px 0; }
+
+/* Match — result */
+.match-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.buddy { display: flex; align-items: center; gap: 14px; margin: 16px 0 6px; }
+.buddy-avatar {
+  width: 52px; height: 52px; border-radius: 50%; flex: none;
+  background: var(--secondary); color: #fff; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+}
+.buddy-label { color: var(--muted); font-size: 13px; margin: 0; }
+.buddy-name { font-family: var(--font-display); font-size: 22px; margin: 2px 0 0; }
+.why { background: var(--bg); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px 16px; margin: 16px 0 18px; }
+.why-label { text-transform: uppercase; letter-spacing: .06em; font-size: 11px; font-weight: 700; color: var(--muted); margin: 0 0 5px; }
+.why p:last-child { margin: 0; }
+
+/* ------------------------------  CHAT  ---------------------------------- */
+.chat-screen { min-height: 100%; display: flex; flex-direction: column; }
+.chat-headline { margin-bottom: 4px; }
+.chat-headline .screen-title { margin-bottom: 2px; }
+.thread { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 12px 0; }
+.thread-empty { text-align: center; margin: auto; padding: 30px 0; }
+.bubble { max-width: 82%; padding: 9px 13px; border-radius: 16px; display: flex; flex-direction: column; }
+.bubble.mine { background: var(--accent); color: var(--accent-ink); align-self: flex-end; border-bottom-right-radius: 5px; }
+.bubble.theirs { background: var(--bg); border: 1px solid var(--line); align-self: flex-start; border-bottom-left-radius: 5px; }
+.bmeta { font-size: 11px; opacity: .75; margin-bottom: 3px; }
+.btext { white-space: pre-wrap; word-break: break-word; }
+.composer {
+  position: sticky; bottom: 0; display: flex; gap: 8px;
+  padding: 12px 0 6px;
+  background: linear-gradient(to top, var(--surface) 72%, rgba(255,255,255,0));
+}
+.composer .text-input { flex: 1; }
+.composer .send { flex: none; }
+
+/* ----------------------------  ORGANIZER  ------------------------------- */
+.admin-note {
+  background: var(--secondary-soft); color: var(--secondary);
+  border: 1px solid rgba(15,118,110,.2); border-radius: 12px;
+  padding: 11px 14px; font-size: 13px; margin: 0 0 18px;
+}
+.section-head { display: flex; align-items: center; gap: 8px; margin: 20px 0 10px; }
+.section-head h2 { font-family: var(--font-display); font-size: 18px; margin: 0; }
+.count { background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13px; border-radius: 999px; padding: 2px 10px; }
+.o-card { background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 15px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.o-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.o-msgs { margin-left: auto; color: var(--muted); font-size: 13px; }
+.o-why { margin: 8px 0 10px; font-size: 14px; }
+.o-email { margin: 4px 0 0; }
+.o-answers { margin: 8px 0 0; color: var(--ink); word-break: break-word; }
+.o-pills { display: flex; gap: 6px; margin-top: 6px; }
+.empty-box { border: 1.5px dashed var(--line); border-radius: 14px; padding: 22px; text-align: center; }
+.empty-card { text-align: center; }
+.empty-card h2 { font-family: var(--font-display); font-size: 20px; margin: 6px 0 8px; }
+
+/* ----------------------------  ANIMATIONS  ------------------------------ */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes view-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 var(--accent-ring); }
+  70%  { box-shadow: 0 0 0 16px rgba(255,90,77,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,90,77,0); }
+}
+.view-enter { animation: view-enter .26s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+/* ------------------  DESKTOP: show it as a centered phone  --------------- */
+@media (min-width: 600px) {
+  body { background: var(--backdrop); }
+  #app {
+    height: min(880px, calc(100dvh - 40px));
+    margin: 20px auto;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+}
