@@ -1,11 +1,11 @@
 {
-  "name": "Study Buddy Matcher",
-  "short_name": "Study Buddy",
-  "description": "Answer a few questions, get matched with a study buddy, and say hi.",
+  "name": "FCF Warriors Fair Match",
+  "short_name": "Fair Match",
+  "description": "Answer a few questions about your Iowa State Fair personality, get matched with a fair buddy, and say hi.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#faf6ef",
-  "theme_color": "#ff5a4d",
+  "background_color": "#fdf6e3",
+  "theme_color": "#c8102e",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }

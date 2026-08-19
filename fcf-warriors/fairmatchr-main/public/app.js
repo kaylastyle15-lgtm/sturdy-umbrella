@@ -180,7 +180,7 @@ function renderWelcomeScreen() {
   setView(`
     <section class="welcome">
       <div class="welcome-art"><img src="/icon.svg" alt="" /></div>
-      <h1>Find your study buddy</h1>
+      <h1>Find your fair buddy</h1>
       <p class="welcome-sub">Answer a few quick questions and we'll pair you with
         someone who studies like you do — and tell you why. Takes about a minute.</p>
       <button class="btn block" id="startBtn" type="button">Get started</button>

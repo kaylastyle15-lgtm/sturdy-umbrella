@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
            "Authorization": "Bearer " + env.RESEND_API_KEY,   // a Cloudflare secret
          },
          body: JSON.stringify({
-           from: "Study Buddy <hi@yourdomain.com>",
+           from: "FCF Warriors Fair Match <hi@yourdomain.com>",
            to: mail.to,
            subject: mail.subject,
            text: mail.text,
@@ -64,7 +64,7 @@ function buildEmail(to, buddy, reason) {
       `Hi ${to.name},\n\n` +
       `Good news — you've been matched with ${buddy.name}.\n` +
       `Why you two: ${reason}\n\n` +
-      `Open the app to say hi and plan your first session.\n\n— Study Buddy`,
+      `Open the app to say hi and plan your first meetup.\n\n— FCF Warriors Fair Match`,
   };
 }
 

@@ -13,16 +13,18 @@
    ========================================================================== */
 
 :root {
-  /* ---- BRAND COLORS ---- */
-  --bg:        #faf6ef;   /* page background (warm cream) */
+  /* ---- BRAND COLORS ----
+     Iowa State Fair palette: butter-yellow background, fairground red for
+     the primary action, and a deep blue-ribbon for the secondary accent. */
+  --bg:        #fdf6e3;   /* page background (butter cream) */
   --surface:   #ffffff;   /* cards sit on top of the page */
-  --ink:       #1c1b1a;   /* main text */
-  --muted:     #6b6660;   /* quieter text (labels, hints) */
-  --accent:    #ff5a4d;   /* PRIMARY action color (buttons, links) — coral */
+  --ink:       #2b2117;   /* main text */
+  --muted:     #7a6a55;   /* quieter text (labels, hints) */
+  --accent:    #c8102e;   /* PRIMARY action color (buttons, links) — fair red */
   --accent-ink:#ffffff;   /* text that sits on the accent color */
-  --secondary: #0f766e;   /* second color for tags/status — teal */
-  --line:      #e7e0d5;   /* thin borders */
-  --ok:        #0f766e;   /* "confirmed" / good */
+  --secondary: #1e3a8a;   /* second color for tags/status — blue-ribbon navy */
+  --line:      #ecdcb0;   /* thin borders */
+  --ok:        #1e3a8a;   /* "confirmed" / good */
   --wait:      #b45309;   /* "waiting" / caution */
 
   /* ---- TYPE (fonts) ----
@@ -45,13 +47,13 @@
      Soft, translucent versions of the brand colors (used for highlights,
      selected options, and status pills). Change the color above and these
      follow — they're the SAME hue, just faded. */
-  --accent-soft:    rgba(255,90,77,.12);   /* faded coral background */
-  --accent-ring:    rgba(255,90,77,.30);   /* focus glow */
-  --secondary-soft: rgba(15,118,110,.12);  /* faded teal background */
-  --backdrop:       #ece5d8;               /* deeper cream behind the phone frame */
+  --accent-soft:    rgba(200,16,46,.12);    /* faded fair-red background */
+  --accent-ring:    rgba(200,16,46,.30);    /* focus glow */
+  --secondary-soft: rgba(30,58,138,.12);    /* faded navy background */
+  --backdrop:       #f3e6bd;                /* deeper butter tone behind the phone frame */
 }
 
 /* ---- COPY (words the app says) live near the top so they're easy to find ----
    Most on-screen words are in the HTML files. The app NAME is set in one place:
    change --app-name here AND the <title>/manifest if you rename the app. */
-:root { --app-name: "Study Buddy"; }
+:root { --app-name: "FCF Warriors Fair Match"; }

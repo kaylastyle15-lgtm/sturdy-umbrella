@@ -169,7 +169,7 @@ async function askClaude(env, me, candidates) {
       system:
         "You match students with study buddies. The candidates you are given " +
         "ALREADY passed every safety rule — never invent new ones and only " +
-        "choose from the provided list. Pick the single best study buddy for " +
+        "choose from the provided list. Pick the single best fair buddy for " +
         "the applicant and explain why in ONE warm, plain sentence a student " +
         'would understand. Reply with ONLY JSON: {"buddyId": <number>, "reason": "<sentence>"}.',
       messages: [
