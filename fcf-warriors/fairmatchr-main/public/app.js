@@ -182,7 +182,7 @@ function renderWelcomeScreen() {
       <div class="welcome-art"><img src="/icon.svg" alt="" /></div>
       <h1>Find your fair buddy</h1>
       <p class="welcome-sub">Answer a few quick questions and we'll pair you with
-        someone who studies like you do — and tell you why. Takes about a minute.</p>
+        someone who fairs like you do — and tell you why. Takes about a minute.</p>
       <button class="btn block" id="startBtn" type="button">Get started</button>
       <button class="linkbtn" id="orgBtn" type="button">I'm running the event</button>
     </section>
@@ -202,7 +202,7 @@ function profileFields() {
     <label class="field">
       <span class="field-label">Email</span>
       <input class="text-input" type="email" id="pf-email" autocomplete="email"
-             placeholder="alex@school.edu" value="${escapeAttr(flow.profile.email)}" />
+             placeholder="alex@example.com" value="${escapeAttr(flow.profile.email)}" />
     </label>
     <label class="field">
       <span class="field-label">Age <span class="muted">(used for a safety check)</span></span>
