@@ -144,8 +144,14 @@ function buildRuleReason(me, them) {
     if (Array.isArray(a) && Array.isArray(b)) shared.push(...a.filter((x) => b.includes(x)));
     else if (a === b) shared.push(a);
   }
-  if (shared.length) return `You two line up on: ${[...new Set(shared)].join(", ")}.`;
-  return "No overlapping answers, but you both cleared the safety checks — a fresh perspective can be a great study match.";
+  const unique = [...new Set(shared)];
+  if (!unique.length) {
+    return "No overlapping answers, but you both cleared the safety checks — a fresh perspective can be a great match.";
+  }
+  // Keep it brief: name the top few shared answers, not the full list.
+  const top = unique.slice(0, 3);
+  const extra = unique.length - top.length;
+  return `You two line up on: ${top.join(", ")}${extra > 0 ? `, +${extra} more` : ""}.`;
 }
 
 /* ============================  LAYER 2 HELPER  ============================ */
