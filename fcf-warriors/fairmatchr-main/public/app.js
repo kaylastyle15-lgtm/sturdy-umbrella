@@ -60,7 +60,15 @@ function shortTime(ts) {
 
 // Put HTML on screen, with a gentle enter animation (unless we're just
 // refreshing the same screen and want to keep the scroll position).
+let lastViewHtml = null;
 function setView(html, animate = true) {
+  // A poll can call this with the exact same markup as last time (nothing
+  // changed server-side). Skip the DOM swap entirely so the screen doesn't
+  // visibly flash/reset scroll on every poll tick. (Comparing against the
+  // string we set, not view.innerHTML read back — the browser can reformat
+  // markup on read, which would make that comparison never match.)
+  if (html === lastViewHtml) return;
+  lastViewHtml = html;
   view.innerHTML = html;
   if (animate) { view.classList.remove("view-enter"); void view.offsetWidth; view.classList.add("view-enter"); }
   if (animate) view.scrollTop = 0;
@@ -483,9 +491,15 @@ async function loadChat() {
     : "Send the first message to confirm your match.";
 
   const thread = $("#thread");
-  thread.innerHTML = r.messages.length
+  const threadHtml = r.messages.length
     ? r.messages.map((m) => bubble(m, me, r.buddyName)).join("")
     : `<p class="thread-empty muted">No messages yet. Say hi to break the ice.</p>`;
+  // Skip the DOM swap when the poll finds no new messages, so the thread
+  // doesn't visibly flicker every 4s while you're mid-read.
+  if (threadHtml !== thread.dataset.lastHtml) {
+    thread.innerHTML = threadHtml;
+    thread.dataset.lastHtml = threadHtml;
+  }
 
   // Scroll to the newest message when the count grows (or on first open).
   if (r.messages.length !== chatCount) { view.scrollTop = view.scrollHeight; chatCount = r.messages.length; }
