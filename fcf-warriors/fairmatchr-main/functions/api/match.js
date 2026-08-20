@@ -35,13 +35,13 @@ const HARD_RULES = [
   // Rule 2 — AGE GAP: keep partners within MAX_AGE_GAP years of each other.
   (me, them) => Math.abs(me.age - them.age) <= MAX_AGE_GAP,
 
-  // Rule 3 — MUST-NEVER (opposing values): never pair a food-first fairgoer
-  // with a rollercoaster-first one — they'll want to do totally different
-  // things all day. This reads the "firstThing" answer from questions.js.
-  (me, them) => !isOpposite(me.answers.firstThing, them.answers.firstThing),
+  // Rule 3 — MUST-NEVER (opposing values): never pair a "Casual" learner with
+  // an "Intense" one — they'll frustrate each other. This reads the "intensity"
+  // answer from questions.js. Swap this for your own dealbreaker.
+  (me, them) => !isOpposite(me.answers.intensity, them.answers.intensity),
 ];
 function isOpposite(a, b) {
-  return (a === "Fair food" && b === "Rollercoasters") || (a === "Rollercoasters" && b === "Fair food");
+  return (a === "Casual" && b === "Intense") || (a === "Intense" && b === "Casual");
 }
 
 /* ==========================  ENTRY POINT  ================================= */
@@ -124,6 +124,7 @@ function ruleScore(me, them) {
     const a = me.answers[key];
     const b = them.answers[key];
     if (b === undefined) continue;
+    if (key === "activities" && Array.isArray(a) && Array.isArray(b)) score += a.filter((x) => b.includes(x)).length * 3; // shared fair activities matter most
     if (Array.isArray(a) && Array.isArray(b)) {
       score += a.filter((x) => b.includes(x)).length; // +1 per shared item
     } else if (a === b) {
@@ -169,7 +170,7 @@ async function askClaude(env, me, candidates) {
       system:
         "You match students with study buddies. The candidates you are given " +
         "ALREADY passed every safety rule — never invent new ones and only " +
-        "choose from the provided list. Pick the single best fair buddy for " +
+        "choose from the provided list. Pick the single best study buddy for " +
         "the applicant and explain why in ONE warm, plain sentence a student " +
         'would understand. Reply with ONLY JSON: {"buddyId": <number>, "reason": "<sentence>"}.',
       messages: [
