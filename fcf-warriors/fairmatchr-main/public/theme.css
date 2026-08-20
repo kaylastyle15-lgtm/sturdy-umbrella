@@ -27,12 +27,12 @@
   --ok:        #1e3a8a;   /* "confirmed" / good */
   --wait:      #b45309;   /* "waiting" / caution */
 
-  /* ---- TYPE (fonts) ----
+ /* ---- TYPE (fonts) ----
      No web fonts on purpose: the app works offline and loads instantly.
      Georgia gives headings an editorial, human feel; the system font keeps
      body text crisp on every device. */
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Sans, 'Open Sans', sans-serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 
   /* ---- SHAPE & SPACING ---- */
   --radius:    14px;      /* how round corners are */
