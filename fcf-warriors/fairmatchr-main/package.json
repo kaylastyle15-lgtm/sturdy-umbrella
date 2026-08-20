@@ -1,14 +1,17 @@
 {
-  "name": "fcf-warriors-fair-match",
-  "version": "1.0.0",
+  "name": "iowa-state-fair",
+  "version": "1.0.1",
   "private": true,
-  "description": "FCF Warriors' Iowa State Fair personality matching PWA. Cloudflare Pages + D1.",
+  "description": "A way for like-minded individuals to attend the state fair.",
   "scripts": {
-    "db:create": "npx wrangler d1 create fcf-warriors-db",
-    "db:init": "npx wrangler d1 execute fcf-warriors-db --remote --file schema.sql",
-    "db:reset": "npx wrangler d1 execute fcf-warriors-db --remote --command \"DELETE FROM messages; DELETE FROM matches; DELETE FROM profiles;\"",
-    "dev": "npx wrangler pages dev ./public",
-    "deploy": "npx wrangler pages deploy",
-    "set-key": "npx wrangler pages secret put ANTHROPIC_API_KEY"
+    "db:create": "wrangler d1 create studybuddy-db",
+    "db:init": "wrangler d1 execute studybuddy-db --remote --file schema.sql",
+    "db:reset": "wrangler d1 execute studybuddy-db --remote --command \"DELETE FROM messages; DELETE FROM matches; DELETE FROM profiles;\"",
+    "dev": "wrangler pages dev ./public",
+    "deploy": "wrangler pages deploy",
+    "set-key": "wrangler pages secret put ANTHROPIC_API_KEY"
+  },
+  "devDependencies": {
+    "wrangler": "^4.124.0"
   }
 }
