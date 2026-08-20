@@ -35,13 +35,13 @@ const HARD_RULES = [
   // Rule 2 — AGE GAP: keep partners within MAX_AGE_GAP years of each other.
   (me, them) => Math.abs(me.age - them.age) <= MAX_AGE_GAP,
 
-  // Rule 3 — MUST-NEVER (opposing values): never pair a "Casual" learner with
-  // an "Intense" one — they'll frustrate each other. This reads the "intensity"
-  // answer from questions.js. Swap this for your own dealbreaker.
-  (me, them) => !isOpposite(me.answers.intensity, them.answers.intensity),
+  // Rule 3 — MUST-NEVER (opposing values): never pair a food-first fairgoer
+  // with a rollercoaster-first one — they'll want to do totally different
+  // things all day. This reads the "firstThing" answer from questions.js.
+  (me, them) => !isOpposite(me.answers.firstThing, them.answers.firstThing),
 ];
 function isOpposite(a, b) {
-  return (a === "Casual" && b === "Intense") || (a === "Intense" && b === "Casual");
+  return (a === "Grab food" && b === "Ride something") || (a === "Ride something" && b === "Grab food");
 }
 
 /* ==========================  ENTRY POINT  ================================= */
@@ -168,10 +168,10 @@ async function askClaude(env, me, candidates) {
       model: "claude-haiku-4-5-20251001",   // fast + inexpensive
       max_tokens: 300,
       system:
-        "You match students with study buddies. The candidates you are given " +
+        "You match people for the Iowa State Fair. The candidates you are given " +
         "ALREADY passed every safety rule — never invent new ones and only " +
-        "choose from the provided list. Pick the single best study buddy for " +
-        "the applicant and explain why in ONE warm, plain sentence a student " +
+        "choose from the provided list. Pick the single best fair buddy for " +
+        "the applicant and explain why in ONE warm, plain sentence a person " +
         'would understand. Reply with ONLY JSON: {"buddyId": <number>, "reason": "<sentence>"}.',
       messages: [
         { role: "user", content: JSON.stringify({ applicant, candidates: options }) },
