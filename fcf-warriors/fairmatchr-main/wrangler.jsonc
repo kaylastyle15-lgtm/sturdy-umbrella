@@ -13,13 +13,9 @@
   "pages_build_output_dir": "./public",
   "d1_databases": [
     {
-      // NOTE: this database_id points at the original template's D1 instance.
-      // Run `npm run db:create` to make your own, then paste the id it prints
-      // here before you deploy — otherwise you'll be reading/writing someone
-      // else's database.
       "binding": "DB",
-      "database_name": "fcf-warriors-db",
-      "database_id": "ffde2b09-23ca-4e3e-b659-ec883066df23"
+      "database_name": "studybuddy-db",
+      "database_id": "911ad106-bd21-4653-83f4-ba267d388b24"
     }
   ]
 }
